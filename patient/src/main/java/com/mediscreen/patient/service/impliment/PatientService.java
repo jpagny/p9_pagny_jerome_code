@@ -15,11 +15,15 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-@AllArgsConstructor
 public class PatientService implements IPatientService {
 
     private final PatientRepository patientRepository;
-    private final ModelMapper modelMapper;
+    private ModelMapper modelMapper;
+
+    public PatientService(PatientRepository patientRepository){
+        this.patientRepository = patientRepository;
+        modelMapper = new ModelMapper();
+    }
 
 
     @Override

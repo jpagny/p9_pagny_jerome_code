@@ -20,7 +20,7 @@ public class PatientController {
 
     private final PatientService patientService;
 
-    @GetMapping("")
+    @GetMapping("/list")
     public ResponseEntity<List<PatientDTO>> getAllPatients() {
         List<PatientDTO> patients = patientService.getAllPatients();
 

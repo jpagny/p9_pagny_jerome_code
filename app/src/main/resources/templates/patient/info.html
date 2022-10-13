@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class="table">
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Sexe</th>
+        <th>Date de naissance</th>
+        <th>Adresse</th>
+        <th>Numéro de téléphone</th>
+    </tr>
+    <tr>
+        <td th:text="${last_name}"/>
+        <td th:text="${first_name}"/>
+        <td th:text="${sex}"/>
+        <td th:text="${birthdate}"/>
+        <td th:text="${address}"/>
+        <td th:text="${phone}"/>
+    </tr>
+</table>
+</body>
+</html>

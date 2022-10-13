@@ -4,9 +4,12 @@ import com.mediscreen.app.bean.PatientBean;
 import com.mediscreen.app.proxy.PatientProxy;
 import com.mediscreen.app.service.IPatientService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+@Service
 @AllArgsConstructor
 public class PatientService implements IPatientService {
 
@@ -18,7 +21,7 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public Map<String, PatientBean> getAllPatient() {
+    public ArrayList<PatientBean> getAllPatient() {
         return patientProxy.getAllPatient();
     }
 
