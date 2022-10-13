@@ -47,4 +47,22 @@ patient/build/
 !patient/**/src/main/**/build/
 !patient/**/src/test/**/build/
 
+### app ###
+
+app/.mvn
+
+app/.idea
+app/*.iws
+app/*.iml
+app/*.ipr
+
+app/nbproject/private/
+app/nbbuild/
+app/dist/
+app/nbdist/
+app/.nb-gradle/
+app/build/
+!app/**/src/main/**/build/
+!app/**/src/test/**/build/
+
 
