@@ -39,5 +39,5 @@ public class PatientEntity {
 
     @Column(name = "phone", length = 50)
     private String phone;
-    
+
 }
