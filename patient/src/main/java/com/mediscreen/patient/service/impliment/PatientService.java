@@ -58,15 +58,17 @@ public class PatientService implements IPatientService {
         PatientEntity patientToCreate = modelMapper.map(patient, PatientEntity.class);
 
         Optional<PatientEntity> patientExist = patientRepository.findByLastNameAndFirstName(
-                patient.getLastName(),
-                patient.getFirstName()
+                patientToCreate.getLastName(),
+                patientToCreate.getFirstName()
         );
 
         if (patientExist.isPresent()) {
-            throw new ResourceAlreadyExistException(patient.getLastName() + " - " + patient.getFirstName());
+            throw new ResourceAlreadyExistException(patientToCreate.getLastName() + " - " + patientToCreate.getFirstName());
         }
 
-        return modelMapper.map(patientRepository.save(patientToCreate), PatientDTO.class);
+        PatientEntity patientCreated = patientRepository.save(patientToCreate);
+
+        return modelMapper.map(patientCreated, PatientDTO.class);
     }
 
     @Override
