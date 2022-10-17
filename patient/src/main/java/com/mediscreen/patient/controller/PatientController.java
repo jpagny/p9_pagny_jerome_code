@@ -22,7 +22,7 @@ public class PatientController {
 
     @GetMapping("/list")
     public ResponseEntity<List<PatientDTO>> getAllPatients() {
-        List<PatientDTO> patients = patientService.getAllPatients();
+        List<PatientDTO> patients = patientService.getAll();
 
         if (patients.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -34,7 +34,7 @@ public class PatientController {
     @GetMapping("/{id}")
     public ResponseEntity<PatientDTO> getPatientById(@PathVariable("id") Long id) {
         try {
-            PatientDTO patient = patientService.getPatient(id);
+            PatientDTO patient = patientService.get(id);
             return new ResponseEntity<>(patient, HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -27,7 +27,7 @@ public class PatientService implements IPatientService {
 
 
     @Override
-    public PatientDTO getPatient(Long id) throws ResourceNotFoundException {
+    public PatientDTO get(Long id) throws ResourceNotFoundException {
         PatientEntity patient = patientRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(String.valueOf(id))
         );
@@ -35,7 +35,7 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public List<PatientDTO> getAllPatients() {
+    public List<PatientDTO> getAll() {
         return patientRepository.findAll()
                 .stream()
                 .map(user -> modelMapper.map(user, PatientDTO.class))
