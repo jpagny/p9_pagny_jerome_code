@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="Patient")
 public class PatientEntity {
 
     @Id
