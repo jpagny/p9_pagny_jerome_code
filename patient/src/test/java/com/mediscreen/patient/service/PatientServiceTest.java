@@ -86,6 +86,7 @@ public class PatientServiceTest {
 
         PatientEntity patientEntity = new PatientEntity(1L, "johna", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
 
+        when(patientRepository.findById(any(Long.class))).thenReturn(Optional.of(patientEntity));
         when(patientRepository.save(any(PatientEntity.class))).thenReturn(patientEntity);
 
         PatientDTO patientUpdated = patientService.update(patientToUpdate);

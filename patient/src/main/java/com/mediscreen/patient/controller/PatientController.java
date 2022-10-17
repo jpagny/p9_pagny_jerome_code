@@ -1,6 +1,7 @@
 package com.mediscreen.patient.controller;
 
 import com.mediscreen.patient.dto.PatientDTO;
+import com.mediscreen.patient.exception.ResourceAlreadyExistException;
 import com.mediscreen.patient.exception.ResourceNotFoundException;
 import com.mediscreen.patient.service.impliment.PatientService;
 import lombok.AllArgsConstructor;
@@ -39,13 +40,33 @@ public class PatientController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<PatientDTO> update(@RequestBody PatientDTO patient) throws ResourceNotFoundException {
-
-        patientService.get(patient.getId());
-        PatientDTO patientUpdated = patientService.update(patient);
-
-        return new ResponseEntity<>(patientUpdated, HttpStatus.OK);
+    public ResponseEntity<PatientDTO> update(@RequestBody PatientDTO patient) {
+        try {
+            PatientDTO patientUpdated = patientService.update(patient);
+            return new ResponseEntity<>(patientUpdated, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<PatientDTO> create(@RequestBody PatientDTO patient) {
+        try {
+            PatientDTO patientCreated = patientService.create(patient);
+            return new ResponseEntity<>(patientCreated, HttpStatus.OK);
+        } catch (ResourceAlreadyExistException ex) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> create(@PathVariable("id") Long id) {
+        try {
+            patientService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
