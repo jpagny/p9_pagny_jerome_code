@@ -7,8 +7,10 @@ import java.util.Map;
 
 public interface IPatientService {
 
-    PatientBean getPatient(Long id);
+    PatientBean get(Long id);
 
-    ArrayList<PatientBean> getAllPatient();
+    ArrayList<PatientBean> getAll();
+
+    PatientBean update(PatientBean patientBean);
 
 }

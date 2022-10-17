@@ -78,5 +78,19 @@ public class PatientServiceTest {
         assertEquals(listUserFound, listPatients);
     }
 
+    @Test
+    @DisplayName("Should be returned patient list  when a patient is updated")
+    public void should_beReturnedPatientList_when_aPatientIsUpdated() throws ResourceNotFoundException {
+        PatientDTO patientToUpdate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
+        patientToUpdate.setLastName("johna");
+
+        PatientEntity patientEntity = new PatientEntity(1L, "johna", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
+
+        when(patientRepository.save(any(PatientEntity.class))).thenReturn(patientEntity);
+
+        PatientDTO patientUpdated = patientService.update(patientToUpdate);
+
+        assertEquals(patientUpdated, patientToUpdate);
+    }
 
 }

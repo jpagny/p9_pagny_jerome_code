@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="head :: headerfragment"></head>
+
 <body>
-    Hello mediscreen !
+<div class="container">
+    <div th:insert="nav" id="nav"></div>
+    <h3>Welcome to Mediscreen</h3>
+</div>
 </body>
 </html>

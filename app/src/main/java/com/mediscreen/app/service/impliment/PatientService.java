@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -16,13 +15,18 @@ public class PatientService implements IPatientService {
     private final PatientProxy patientProxy;
 
     @Override
-    public PatientBean getPatient(Long id) {
+    public PatientBean get(Long id) {
         return patientProxy.getPatient(id);
     }
 
     @Override
-    public ArrayList<PatientBean> getAllPatient() {
+    public ArrayList<PatientBean> getAll() {
         return patientProxy.getAllPatient();
+    }
+
+    @Override
+    public PatientBean update(PatientBean patientBean) {
+        return patientProxy.update(patientBean);
     }
 
 }

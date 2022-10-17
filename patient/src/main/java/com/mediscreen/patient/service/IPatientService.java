@@ -8,7 +8,7 @@ import java.util.List;
 public interface IPatientService {
 
     PatientDTO get(Long id) throws ResourceNotFoundException;
-
     List<PatientDTO> getAll();
+    PatientDTO update(PatientDTO patientDTO);
 
 }

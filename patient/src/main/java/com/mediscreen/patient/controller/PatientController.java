@@ -6,10 +6,7 @@ import com.mediscreen.patient.service.impliment.PatientService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +36,15 @@ public class PatientController {
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<PatientDTO> update(@RequestBody PatientDTO patient) throws ResourceNotFoundException {
+
+        patientService.get(patient.getId());
+        PatientDTO patientUpdated = patientService.update(patient);
+
+        return new ResponseEntity<>(patientUpdated, HttpStatus.OK);
     }
 
 

@@ -5,7 +5,6 @@ import com.mediscreen.patient.entity.PatientEntity;
 import com.mediscreen.patient.exception.ResourceNotFoundException;
 import com.mediscreen.patient.repository.PatientRepository;
 import com.mediscreen.patient.service.IPatientService;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +19,10 @@ public class PatientService implements IPatientService {
     private final PatientRepository patientRepository;
     private ModelMapper modelMapper;
 
-    public PatientService(PatientRepository patientRepository){
+    public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
         modelMapper = new ModelMapper();
     }
-
 
     @Override
     public PatientDTO get(Long id) throws ResourceNotFoundException {
@@ -40,6 +38,12 @@ public class PatientService implements IPatientService {
                 .stream()
                 .map(user -> modelMapper.map(user, PatientDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PatientDTO update(PatientDTO patient) {
+        PatientEntity patientToUpdate = modelMapper.map(patient, PatientEntity.class);
+        return modelMapper.map(patientRepository.save(patientToUpdate), PatientDTO.class);
     }
 
 }
