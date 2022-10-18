@@ -26,6 +26,13 @@ public class PatientService implements IPatientService {
         modelMapper = new ModelMapper();
     }
 
+    /**
+     * Fetch a patient
+     *
+     * @param id the id of patient
+     * @return the patient
+     * @throws ResourceNotFoundException the patient doesn't exist
+     */
     @Override
     public PatientDTO get(Long id) throws ResourceNotFoundException {
         PatientEntity patient = patientRepository.findById(id).orElseThrow(
@@ -34,6 +41,11 @@ public class PatientService implements IPatientService {
         return modelMapper.map(patient, PatientDTO.class);
     }
 
+    /**
+     * Fetch all patients
+     *
+     * @return a list of patients
+     */
     @Override
     public List<PatientDTO> getAll() {
         return patientRepository.findAll()
@@ -42,6 +54,13 @@ public class PatientService implements IPatientService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Update a patient
+     *
+     * @param patient the patient to update
+     * @return patient updated
+     * @throws ResourceNotFoundException the patient doesn't exist
+     */
     @Override
     public PatientDTO update(PatientDTO patient) throws ResourceNotFoundException {
         patientRepository.findById(patient.getId()).orElseThrow(
@@ -53,6 +72,13 @@ public class PatientService implements IPatientService {
         return modelMapper.map(patientRepository.save(patientToUpdate), PatientDTO.class);
     }
 
+    /**
+     * Create a new patient
+     *
+     * @param patient the patient to create
+     * @return the patient created
+     * @throws ResourceAlreadyExistException the patient is already exist in database
+     */
     @Override
     public PatientDTO create(PatientDTO patient) throws ResourceAlreadyExistException {
         PatientEntity patientToCreate = modelMapper.map(patient, PatientEntity.class);
@@ -71,6 +97,12 @@ public class PatientService implements IPatientService {
         return modelMapper.map(patientCreated, PatientDTO.class);
     }
 
+    /**
+     * Delete the patient
+     *
+     * @param id the id of patient
+     * @throws ResourceNotFoundException the patient doesn't exist
+     */
     @Override
     public void delete(Long id) throws ResourceNotFoundException {
         PatientEntity patient = patientRepository.findById(id).orElseThrow(
