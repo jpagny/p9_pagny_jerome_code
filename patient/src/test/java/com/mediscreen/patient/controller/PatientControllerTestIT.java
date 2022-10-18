@@ -1,5 +1,6 @@
 package com.mediscreen.patient.controller;
 
+import com.mediscreen.patient.constant.Gender;
 import com.mediscreen.patient.dto.PatientDTO;
 import com.mediscreen.patient.helper.Helper;
 import com.mediscreen.patient.service.impliment.PatientService;
@@ -15,11 +16,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -70,8 +71,18 @@ public class PatientControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be redirect to patient/list when patient updated is success")
-    public void should_beRedirectToPatientList_when_patientUpdatedIsSuccess() throws Exception {
+    @DisplayName("Should be returned 204 when patient list is empty")
+    public void should_beReturned200_when_patientListIsEmpty() throws Exception {
+        patientService.delete(1L);
+        patientService.delete(2L);
+
+        mockMvc.perform(get("/patient/list"))
+                .andExpect(status().is(204));
+    }
+
+    @Test
+    @DisplayName("Should be returned 200 when patient updated is success")
+    public void should_beReturned200_when_patientUpdateIsSuccess() throws Exception {
 
         PatientDTO thePatient = patientService.get(1L);
         thePatient.setLastName("johna");
@@ -82,6 +93,62 @@ public class PatientControllerTestIT {
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.lastName").value("johna"))
                 .andExpect(jsonPath("$.firstName").value("jonathan"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Should be returned 404 when patient updated doesnt exist")
+    public void should_beReturned200_when_patientUpdateDoesntExist() throws Exception {
+
+        PatientDTO thePatient = patientService.get(1L);
+        thePatient.setId(1000L);
+        String json = Helper.mapToJson(thePatient);
+
+        mockMvc.perform(put("/patient/update")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
+                .andExpect(status().is(404))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Should be returned 200 when patient create is success")
+    public void should_beReturned200_when_patientCreateIsSuccess() throws Exception {
+        PatientDTO thePatient = new PatientDTO(3L, "Test", "Test2", LocalDate.now(), Gender.WOMEN, "xx", "xx");
+        String json = Helper.mapToJson(thePatient);
+
+        mockMvc.perform(post("/patient/create")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.lastName").value("Test"))
+                .andExpect(jsonPath("$.firstName").value("Test2"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Should be returned 409 when patient create is already exist")
+    public void should_beReturned503_when_patientCreateIsAlreadyExist() throws Exception {
+        PatientDTO thePatient = new PatientDTO(4L, "john", "jonathan", LocalDate.now(), Gender.WOMEN, "xx", "xx");
+        String json = Helper.mapToJson(thePatient);
+
+        mockMvc.perform(post("/patient/create")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
+                .andExpect(status().is(409))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Should be returned 200 when patient delete is success")
+    public void should_beReturned200_when_patientDeleteIsSuccess() throws Exception {
+        mockMvc.perform(post("/patient/delete/1"))
+                .andExpect(status().is(200))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Should be returned 404 when patient delete doesn't exist")
+    public void should_beReturned200_when_patientDeleteDoesntExist() throws Exception {
+        mockMvc.perform(post("/patient/delete/100"))
+                .andExpect(status().is(404))
                 .andReturn();
     }
 
