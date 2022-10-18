@@ -5,9 +5,9 @@
 <body>
 <div class="container">
     <div th:insert="nav" id="nav"></div>
-    <div class="row"><h2>Bid List</h2></div>
+    <div class="row"><h2>Patient list</h2></div>
     <div class="row">
-        <a href="/admin/bidList/add" class="btn btn-primary btn-sm">Add New</a>
+        <a href="/patient/add" class="btn btn-primary btn-sm">Add New</a>
         <br/>
         <table class="table table-bordered">
             <thead>
@@ -30,7 +30,7 @@
                 <td th:text="${patient.phone}"/>
                 <td style="width: 15%" class="text-center">
                     <a th:href="@{/patient/info/{id}(id=${patient.getId()})}">Detail</a> |
-                    <a th:href="@{/patient/update/{id}(id=${patient.getId()})}">Edit</a> |
+                    <a th:href="@{/patient/update/{id}(id=${patient.getId()})}">Edit</a>
                 </td>
             </tr>
             </tbody>

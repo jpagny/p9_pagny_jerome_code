@@ -62,6 +62,31 @@ public class PatientController {
         return "redirect:/patient/list";
     }
 
+    @GetMapping("/add")
+    public String showCreateForm(Model model) {
+        model.addAttribute("patient", new PatientBean());
+        return "patient/add";
+    }
+
+    @PostMapping("/create")
+    public String createPatient(Model model, @Valid PatientBean patient, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "patient/add";
+        }
+
+        patientService.create(patient);
+
+        model.addAttribute("patients", patientService.getAll());
+
+        return "redirect:/patient/list";
+    }
+
+
+
+
+
+
 
 }
 

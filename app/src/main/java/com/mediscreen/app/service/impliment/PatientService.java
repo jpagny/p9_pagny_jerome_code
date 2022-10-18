@@ -29,4 +29,9 @@ public class PatientService implements IPatientService {
         return patientProxy.update(patientBean);
     }
 
+    @Override
+    public PatientBean create(PatientBean patientBean) {
+        return patientProxy.create(patientBean);
+    }
+
 }

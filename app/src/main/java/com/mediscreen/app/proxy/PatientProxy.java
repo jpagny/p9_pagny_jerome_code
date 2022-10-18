@@ -2,10 +2,7 @@ package com.mediscreen.app.proxy;
 
 import com.mediscreen.app.bean.PatientBean;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -20,4 +17,11 @@ public interface PatientProxy {
 
     @PutMapping(value = "/patient/update")
     PatientBean update(@RequestBody PatientBean patientBean);
+
+    @PostMapping(value="/patient/create")
+    PatientBean create(@RequestBody PatientBean patientBean);
+
+    @DeleteMapping(value="/patient/delete/{id}")
+    PatientBean create(@PathVariable("id") long id);
+
 }

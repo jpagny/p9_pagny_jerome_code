@@ -13,4 +13,6 @@ public interface IPatientService {
 
     PatientBean update(PatientBean patientBean);
 
+    PatientBean create(PatientBean patientBean);
+
 }

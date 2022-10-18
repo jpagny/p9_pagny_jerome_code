@@ -60,7 +60,7 @@ public class PatientController {
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> create(@PathVariable("id") Long id) {
+    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         try {
             patientService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
