@@ -118,7 +118,7 @@ public class PatientController {
         }
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @Parameter(description = "Long id.", required = true)
     @Operation(summary = "Delete a patient",
             description = "Patient will be deleted",
