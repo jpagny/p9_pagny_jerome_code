@@ -5,7 +5,6 @@ import com.mediscreen.patient.constant.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.validation.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.time.LocalDate;

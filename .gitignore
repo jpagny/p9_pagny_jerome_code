@@ -65,4 +65,23 @@ app/build/
 !app/**/src/main/**/build/
 !app/**/src/test/**/build/
 
+### history ###
+
+history/.mvn
+
+history/.idea
+history/*.iws
+history/*.iml
+history/*.ipr
+
+history/nbproject/private/
+history/nbbuild/
+history/dist/
+history/nbdist/
+history/.nb-gradle/
+history/build/
+!history/**/src/main/**/build/
+!history/**/src/test/**/build/
+
+
 
