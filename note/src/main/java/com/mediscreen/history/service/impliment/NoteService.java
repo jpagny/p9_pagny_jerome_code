@@ -1,10 +1,10 @@
 package com.mediscreen.history.service.impliment;
 
-import com.mediscreen.history.dto.HistoryDTO;
+import com.mediscreen.history.dto.NoteDTO;
 import com.mediscreen.history.exception.ResourceNotFoundException;
-import com.mediscreen.history.model.HistoryEntity;
-import com.mediscreen.history.repository.HistoryRepository;
-import com.mediscreen.history.service.IHistoryService;
+import com.mediscreen.history.document.NoteDocument;
+import com.mediscreen.history.repository.NoteRepository;
+import com.mediscreen.history.service.INoteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class HistoryService implements IHistoryService {
+public class NoteService implements INoteService {
 
-    private final HistoryRepository historyRepository;
+    private final NoteRepository noteRepository;
 
     private final ModelMapper modelMapper;
 
-    public HistoryService(HistoryRepository historyRepository) {
-        this.historyRepository = historyRepository;
+    public NoteService(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
         modelMapper = new ModelMapper();
     }
 
@@ -31,11 +31,11 @@ public class HistoryService implements IHistoryService {
      * @throws ResourceNotFoundException the history doesn't exist
      */
     @Override
-    public HistoryDTO get(String id) throws ResourceNotFoundException {
-        HistoryEntity history = historyRepository.findById(id).orElseThrow(
+    public NoteDTO get(String id) throws ResourceNotFoundException {
+        NoteDocument history = noteRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(id)
         );
-        return modelMapper.map(history, HistoryDTO.class);
+        return modelMapper.map(history, NoteDTO.class);
     }
 
     /**
@@ -44,10 +44,10 @@ public class HistoryService implements IHistoryService {
      * @return a list of histories
      */
     @Override
-    public List<HistoryDTO> getAll() {
-        return historyRepository.findAll()
+    public List<NoteDTO> getAll() {
+        return noteRepository.findAll()
                 .stream()
-                .map(history -> modelMapper.map(history, HistoryDTO.class))
+                .map(history -> modelMapper.map(history, NoteDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -59,14 +59,14 @@ public class HistoryService implements IHistoryService {
      * @throws ResourceNotFoundException the history doesn't exist
      */
     @Override
-    public HistoryDTO update(HistoryDTO history) throws ResourceNotFoundException {
-        historyRepository.findById(history.getId()).orElseThrow(
+    public NoteDTO update(NoteDTO history) throws ResourceNotFoundException {
+        noteRepository.findById(history.getId()).orElseThrow(
                 () -> new ResourceNotFoundException(String.valueOf(history.getId()))
         );
 
-        HistoryEntity historyToUpdate = modelMapper.map(history, HistoryEntity.class);
+        NoteDocument historyToUpdate = modelMapper.map(history, NoteDocument.class);
 
-        return modelMapper.map(historyRepository.save(historyToUpdate), HistoryDTO.class);
+        return modelMapper.map(noteRepository.save(historyToUpdate), NoteDTO.class);
     }
 
     /**
@@ -76,12 +76,12 @@ public class HistoryService implements IHistoryService {
      * @return the history created
      */
     @Override
-    public HistoryDTO create(HistoryDTO history) {
-        HistoryEntity historyToCreate = modelMapper.map(history, HistoryEntity.class);
+    public NoteDTO create(NoteDTO history) {
+        NoteDocument historyToCreate = modelMapper.map(history, NoteDocument.class);
 
-        HistoryEntity historyCreated = historyRepository.save(historyToCreate);
+        NoteDocument historyCreated = noteRepository.save(historyToCreate);
 
-        return modelMapper.map(historyCreated, HistoryDTO.class);
+        return modelMapper.map(historyCreated, NoteDTO.class);
     }
 
     /**
@@ -92,9 +92,9 @@ public class HistoryService implements IHistoryService {
      */
     @Override
     public void delete(String id) throws ResourceNotFoundException {
-        HistoryEntity history = historyRepository.findById(id).orElseThrow(
+        NoteDocument history = noteRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(id)
         );
-        historyRepository.delete(history);
+        noteRepository.delete(history);
     }
 }

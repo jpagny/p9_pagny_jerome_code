@@ -1,8 +1,8 @@
 package com.mediscreen.history.controller;
 
-import com.mediscreen.history.dto.HistoryDTO;
+import com.mediscreen.history.dto.NoteDTO;
 import com.mediscreen.history.exception.ResourceNotFoundException;
-import com.mediscreen.history.service.impliment.HistoryService;
+import com.mediscreen.history.service.impliment.NoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/history")
-public class HistoryController {
+@RequestMapping("/note")
+public class NoteController {
 
-    private final HistoryService historyService;
+    private final NoteService noteService;
 
-    public HistoryController(HistoryService historyService) {
-        this.historyService = historyService;
+    public NoteController(NoteService noteService) {
+        this.noteService = noteService;
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<HistoryDTO>> getAllHistories() {
-        List<HistoryDTO> histories = historyService.getAll();
+    public ResponseEntity<List<NoteDTO>> getAllHistories() {
+        List<NoteDTO> histories = noteService.getAll();
 
         if (histories.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -31,9 +31,9 @@ public class HistoryController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<HistoryDTO> getHistory(@PathVariable("id") String id) {
+    public ResponseEntity<NoteDTO> getHistory(@PathVariable("id") String id) {
         try {
-            HistoryDTO history = historyService.get(id);
+            NoteDTO history = noteService.get(id);
             return new ResponseEntity<>(history, HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -41,9 +41,9 @@ public class HistoryController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<HistoryDTO> update(@RequestBody HistoryDTO history) {
+    public ResponseEntity<NoteDTO> update(@RequestBody NoteDTO history) {
         try {
-            HistoryDTO historyUpdated = historyService.update(history);
+            NoteDTO historyUpdated = noteService.update(history);
             return new ResponseEntity<>(historyUpdated, HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,15 +51,15 @@ public class HistoryController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<HistoryDTO> create(@RequestBody HistoryDTO history) {
-        HistoryDTO historyCreated = historyService.create(history);
+    public ResponseEntity<NoteDTO> create(@RequestBody NoteDTO history) {
+        NoteDTO historyCreated = noteService.create(history);
         return new ResponseEntity<>(historyCreated, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") String id) {
         try {
-            historyService.delete(id);
+            noteService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

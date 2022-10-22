@@ -1,4 +1,4 @@
-package com.mediscreen.history.model;
+package com.mediscreen.history.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document("history")
-public class HistoryEntity {
+@Document("note")
+public class NoteDocument {
 
     @Id
     private String id;

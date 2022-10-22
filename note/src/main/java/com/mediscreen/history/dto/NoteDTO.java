@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HistoryDTO {
+public class NoteDTO {
 
     private String id;
 
