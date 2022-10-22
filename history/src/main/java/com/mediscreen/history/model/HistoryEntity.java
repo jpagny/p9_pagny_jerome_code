@@ -1,31 +1,26 @@
-package com.mediscreen.history.entity;
+package com.mediscreen.history.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "history")
+@Document("history")
 public class HistoryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private String id;
 
-    @Column(name = "patient_id")
     private Long patientId;
 
-    @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "note")
     private String note;
 
 }

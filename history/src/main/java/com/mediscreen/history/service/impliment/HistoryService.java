@@ -1,19 +1,17 @@
 package com.mediscreen.history.service.impliment;
 
 import com.mediscreen.history.dto.HistoryDTO;
-import com.mediscreen.history.entity.HistoryEntity;
+import com.mediscreen.history.model.HistoryEntity;
 import com.mediscreen.history.exception.ResourceNotFoundException;
 import com.mediscreen.history.repository.HistoryRepository;
 import com.mediscreen.history.service.IHistoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class HistoryService implements IHistoryService {
 
     private final HistoryRepository historyRepository;
