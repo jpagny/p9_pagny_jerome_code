@@ -1,8 +1,8 @@
-package com.mediscreen.history.controller;
+package com.mediscreen.note.controller;
 
-import com.mediscreen.history.dto.NoteDTO;
-import com.mediscreen.history.exception.ResourceNotFoundException;
-import com.mediscreen.history.service.impliment.NoteService;
+import com.mediscreen.note.dto.NoteDTO;
+import com.mediscreen.note.exception.ResourceNotFoundException;
+import com.mediscreen.note.service.impliment.NoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

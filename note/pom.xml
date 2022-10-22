@@ -13,8 +13,8 @@
     <groupId>com.mediscreen</groupId>
     <artifactId>history</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>history</name>
-    <description>history</description>
+    <name>note</name>
+    <description>note</description>
 
     <properties>
         <java.version>1.8</java.version>

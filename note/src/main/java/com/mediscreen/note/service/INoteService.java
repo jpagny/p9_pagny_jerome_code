@@ -1,7 +1,7 @@
-package com.mediscreen.history.service;
+package com.mediscreen.note.service;
 
-import com.mediscreen.history.dto.NoteDTO;
-import com.mediscreen.history.exception.ResourceNotFoundException;
+import com.mediscreen.note.dto.NoteDTO;
+import com.mediscreen.note.exception.ResourceNotFoundException;
 
 import java.util.List;
 

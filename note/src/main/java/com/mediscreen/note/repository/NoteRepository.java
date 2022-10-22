@@ -1,6 +1,6 @@
-package com.mediscreen.history.repository;
+package com.mediscreen.note.repository;
 
-import com.mediscreen.history.document.NoteDocument;
+import com.mediscreen.note.document.NoteDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

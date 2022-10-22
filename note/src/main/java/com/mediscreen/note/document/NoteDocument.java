@@ -1,16 +1,20 @@
-package com.mediscreen.history.dto;
+package com.mediscreen.note.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NoteDTO {
+@Document("note")
+public class NoteDocument {
 
+    @Id
     private String id;
 
     private Long patientId;

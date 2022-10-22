@@ -1,10 +1,10 @@
-package com.mediscreen.history.service.impliment;
+package com.mediscreen.note.service.impliment;
 
-import com.mediscreen.history.dto.NoteDTO;
-import com.mediscreen.history.exception.ResourceNotFoundException;
-import com.mediscreen.history.document.NoteDocument;
-import com.mediscreen.history.repository.NoteRepository;
-import com.mediscreen.history.service.INoteService;
+import com.mediscreen.note.dto.NoteDTO;
+import com.mediscreen.note.exception.ResourceNotFoundException;
+import com.mediscreen.note.document.NoteDocument;
+import com.mediscreen.note.repository.NoteRepository;
+import com.mediscreen.note.service.INoteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

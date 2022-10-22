@@ -1,4 +1,4 @@
-package com.mediscreen.history.exception;
+package com.mediscreen.note.exception;
 
 public class ResourceNotFoundException extends Exception{
     public ResourceNotFoundException(String resource) {
