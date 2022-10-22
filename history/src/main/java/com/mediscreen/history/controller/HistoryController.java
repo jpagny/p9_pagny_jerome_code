@@ -31,7 +31,7 @@ public class HistoryController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<HistoryDTO> getHistory(@PathVariable("id") Long id) {
+    public ResponseEntity<HistoryDTO> getHistory(@PathVariable("id") String id) {
         try {
             HistoryDTO history = historyService.get(id);
             return new ResponseEntity<>(history, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class HistoryController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<String> delete(@PathVariable("id") String id) {
         try {
             historyService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);

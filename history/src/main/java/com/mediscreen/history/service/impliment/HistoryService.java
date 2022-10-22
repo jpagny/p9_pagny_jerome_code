@@ -1,8 +1,8 @@
 package com.mediscreen.history.service.impliment;
 
 import com.mediscreen.history.dto.HistoryDTO;
-import com.mediscreen.history.model.HistoryEntity;
 import com.mediscreen.history.exception.ResourceNotFoundException;
+import com.mediscreen.history.model.HistoryEntity;
 import com.mediscreen.history.repository.HistoryRepository;
 import com.mediscreen.history.service.IHistoryService;
 import org.modelmapper.ModelMapper;
@@ -31,9 +31,9 @@ public class HistoryService implements IHistoryService {
      * @throws ResourceNotFoundException the history doesn't exist
      */
     @Override
-    public HistoryDTO get(Long id) throws ResourceNotFoundException {
+    public HistoryDTO get(String id) throws ResourceNotFoundException {
         HistoryEntity history = historyRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.valueOf(id))
+                () -> new ResourceNotFoundException(id)
         );
         return modelMapper.map(history, HistoryDTO.class);
     }
@@ -91,9 +91,9 @@ public class HistoryService implements IHistoryService {
      * @throws ResourceNotFoundException the history doesn't exist
      */
     @Override
-    public void delete(Long id) throws ResourceNotFoundException {
+    public void delete(String id) throws ResourceNotFoundException {
         HistoryEntity history = historyRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.valueOf(id))
+                () -> new ResourceNotFoundException(id)
         );
         historyRepository.delete(history);
     }

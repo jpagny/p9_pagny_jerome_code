@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class HistoryDTO {
 
-    private Long id;
+    private String id;
 
     private Long patientId;
 

@@ -6,7 +6,7 @@ import com.mediscreen.history.exception.ResourceNotFoundException;
 import java.util.List;
 
 public interface IHistoryService {
-    HistoryDTO get(Long id) throws ResourceNotFoundException;
+    HistoryDTO get(String id) throws ResourceNotFoundException;
 
     List<HistoryDTO> getAll();
 
@@ -14,5 +14,5 @@ public interface IHistoryService {
 
     HistoryDTO create(HistoryDTO historyDTO);
 
-    void delete(Long id) throws ResourceNotFoundException;
+    void delete(String id) throws ResourceNotFoundException;
 }
