@@ -30,7 +30,7 @@ public class NoteController {
         return new ResponseEntity<>(histories, HttpStatus.OK);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<NoteDTO> getHistory(@PathVariable("id") String id) {
         try {
             NoteDTO history = noteService.get(id);
