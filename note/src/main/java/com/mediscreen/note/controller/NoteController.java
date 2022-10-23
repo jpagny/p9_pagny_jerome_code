@@ -40,7 +40,7 @@ public class NoteController {
         }
     }
 
-    @PutMapping("/update")
+    @PutMapping("/")
     public ResponseEntity<NoteDTO> update(@RequestBody NoteDTO history) {
         try {
             NoteDTO historyUpdated = noteService.update(history);
@@ -50,13 +50,13 @@ public class NoteController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<NoteDTO> create(@RequestBody NoteDTO history) {
         NoteDTO historyCreated = noteService.create(history);
         return new ResponseEntity<>(historyCreated, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") String id) {
         try {
             noteService.delete(id);

@@ -41,8 +41,8 @@ public class PatientServiceTest {
     }
 
     @Test
-    @DisplayName("Should be returned user when the patient is found by id")
-    public void should_beReturnedUser_when_theUserIsFoundById() throws ResourceNotFoundException {
+    @DisplayName("Should be returned patient when the patient is found by id")
+    public void should_beReturnedPatient_when_thePatientIsFoundById() throws ResourceNotFoundException {
         PatientDTO patient = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
         when(patientRepository.findById(any(Long.class))).thenReturn(Optional.of(new PatientEntity(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36")));
 
@@ -75,9 +75,9 @@ public class PatientServiceTest {
                 .map(thePatient -> modelMapper.map(thePatient, PatientEntity.class))
                 .collect(Collectors.toList()));
 
-        List<PatientDTO> listUserFound = patientService.getAll();
+        List<PatientDTO> listPatientsFound = patientService.getAll();
 
-        assertEquals(listUserFound, listPatients);
+        assertEquals(listPatientsFound, listPatients);
     }
 
     @Test
