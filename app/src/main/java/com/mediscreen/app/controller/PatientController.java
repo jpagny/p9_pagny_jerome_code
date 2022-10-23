@@ -62,7 +62,7 @@ public class PatientController {
         return "redirect:/patient/list";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("patient", new PatientBean());
         return "patient/add";

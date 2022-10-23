@@ -16,12 +16,12 @@ public class PatientService implements IPatientService {
 
     @Override
     public PatientBean get(Long id) {
-        return patientProxy.getPatient(id);
+        return patientProxy.get(id);
     }
 
     @Override
     public ArrayList<PatientBean> getAll() {
-        return patientProxy.getAllPatient();
+        return patientProxy.getAll();
     }
 
     @Override

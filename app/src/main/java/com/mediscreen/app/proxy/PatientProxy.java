@@ -10,18 +10,18 @@ import java.util.ArrayList;
 public interface PatientProxy {
 
     @GetMapping(value = "/patient/list/")
-    ArrayList<PatientBean> getAllPatient();
+    ArrayList<PatientBean> getAll();
 
     @GetMapping( value = "/patient/{id}")
-    PatientBean getPatient(@PathVariable("id") long id);
+    PatientBean get(@PathVariable("id") long id);
 
-    @PutMapping(value = "/patient/update")
+    @PutMapping(value = "/patient/")
     PatientBean update(@RequestBody PatientBean patientBean);
 
-    @PostMapping(value="/patient/create")
+    @PostMapping(value="/patient/")
     PatientBean create(@RequestBody PatientBean patientBean);
 
-    @DeleteMapping(value="/patient/delete/{id}")
+    @DeleteMapping(value="/patient/{id}")
     PatientBean create(@PathVariable("id") long id);
 
 }
