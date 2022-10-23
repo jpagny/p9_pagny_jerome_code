@@ -69,7 +69,7 @@ public class PatientController {
         }
     }
 
-    @PutMapping("/update")
+    @PutMapping("/")
     @Parameter(description = "PatientDTO patient.", required = true, schema = @Schema(implementation = PatientDTO.class))
     @Operation(summary = "Update a patient",
             description = "Also returns a link to patient updated",
@@ -93,7 +93,7 @@ public class PatientController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     @Parameter(description = "PatientDTO patient.", required = true, schema = @Schema(implementation = PatientDTO.class))
     @Operation(summary = "Create a patient",
             description = "Also returns a link to patient created",
@@ -118,7 +118,7 @@ public class PatientController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @Parameter(description = "Long id.", required = true)
     @Operation(summary = "Delete a patient",
             description = "Patient will be deleted",

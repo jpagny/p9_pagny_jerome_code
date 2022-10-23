@@ -88,7 +88,7 @@ public class PatientControllerTestIT {
         thePatient.setLastName("johna");
         String json = Helper.mapToJson(thePatient);
 
-        mockMvc.perform(put("/patient/update")
+        mockMvc.perform(put("/patient/")
                         .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.lastName").value("johna"))
@@ -104,7 +104,7 @@ public class PatientControllerTestIT {
         thePatient.setId(1000L);
         String json = Helper.mapToJson(thePatient);
 
-        mockMvc.perform(put("/patient/update")
+        mockMvc.perform(put("/patient/")
                         .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
                 .andExpect(status().is(404))
                 .andReturn();
@@ -116,7 +116,7 @@ public class PatientControllerTestIT {
         PatientDTO thePatient = new PatientDTO(3L, "Test", "Test2", LocalDate.now(), Gender.WOMEN, "xx", "xx");
         String json = Helper.mapToJson(thePatient);
 
-        mockMvc.perform(post("/patient/create")
+        mockMvc.perform(post("/patient/")
                         .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.lastName").value("Test"))
@@ -130,7 +130,7 @@ public class PatientControllerTestIT {
         PatientDTO thePatient = new PatientDTO(4L, "john", "jonathan", LocalDate.now(), Gender.WOMEN, "xx", "xx");
         String json = Helper.mapToJson(thePatient);
 
-        mockMvc.perform(post("/patient/create")
+        mockMvc.perform(post("/patient/")
                         .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
                 .andExpect(status().is(409))
                 .andReturn();
@@ -139,7 +139,7 @@ public class PatientControllerTestIT {
     @Test
     @DisplayName("Should be returned 200 when patient delete is success")
     public void should_beReturned200_when_patientDeleteIsSuccess() throws Exception {
-        mockMvc.perform(post("/patient/delete/1"))
+        mockMvc.perform(delete("/patient/1"))
                 .andExpect(status().is(200))
                 .andReturn();
     }
@@ -147,7 +147,7 @@ public class PatientControllerTestIT {
     @Test
     @DisplayName("Should be returned 404 when patient delete doesn't exist")
     public void should_beReturned200_when_patientDeleteDoesntExist() throws Exception {
-        mockMvc.perform(post("/patient/delete/100"))
+        mockMvc.perform(delete("/patient/100"))
                 .andExpect(status().is(404))
                 .andReturn();
     }

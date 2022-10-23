@@ -1,14 +1,11 @@
 package com.mediscreen.note;
 
 import com.mediscreen.note.config.BuildDataTesting;
-import com.mediscreen.note.document.NoteDocument;
 import com.mediscreen.note.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.time.LocalDateTime;
 
 @SpringBootApplication()
 public class NoteApplication implements CommandLineRunner {
@@ -27,12 +24,11 @@ public class NoteApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (demoMode) {
             BuildDataTesting buildData = new BuildDataTesting(noteRepository);
             buildData.buildData();
         }
-
     }
 
 }
