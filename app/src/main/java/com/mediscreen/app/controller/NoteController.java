@@ -38,9 +38,11 @@ public class NoteController {
 
     @GetMapping("/list")
     public String getNoteList(Model model) {
-        ArrayList<NoteBean> response = noteService.getAll();
+        ArrayList<NoteBean> listNote = noteService.getAll();
 
-        model.addAttribute("notes", response);
+        listNote.stream().forEach(theNote-> theNote.setPatient(patientService.get(theNote.getPatientId())));
+
+        model.addAttribute("notes", listNote);
 
         return "note/list";
     }

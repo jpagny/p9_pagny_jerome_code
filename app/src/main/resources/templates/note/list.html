@@ -25,6 +25,7 @@
             <tbody>
             <tr th:each="note: ${notes}">
                 <td th:text="${note.id}"/>
+                <td th:text="${note.patient.lastName + ' ' + note.patient.firstName + ' (' + note.patient.birthdate + ')'}"/>
                 <td th:text="${note.date}"/>
                 <td th:text="${note.note}"/>
                 <td style="width: 15%" class="text-center">
