@@ -17,4 +17,6 @@ public interface INoteService {
 
     NoteBean create(NoteBean note);
 
+    void delete(String id);
+
 }

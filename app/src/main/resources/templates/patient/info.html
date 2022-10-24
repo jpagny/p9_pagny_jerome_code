@@ -53,7 +53,8 @@
                 <td th:text="${note.note}"/>
                 <td style="width: 15%" class="text-center">
                     <a th:href="@{/note/info/{id}(id=${note.getId()})}">Detail</a> |
-                    <a th:href="@{/note/update/{id}(id=${note.getId()})}">Edit</a>
+                    <a th:href="@{/note/update/{id}(id=${note.getId()})}">Edit</a> |
+                    <a th:href="@{/note/delete/{id}(id=${note.getId()})}">Delete</a>
                 </td>
             </tr>
             </tbody>

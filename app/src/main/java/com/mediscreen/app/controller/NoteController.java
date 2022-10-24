@@ -40,7 +40,11 @@ public class NoteController {
     public String getNoteList(Model model) {
         ArrayList<NoteBean> listNote = noteService.getAll();
 
-        listNote.stream().forEach(theNote-> theNote.setPatient(patientService.get(theNote.getPatientId())));
+        if ( listNote != null) {
+            listNote.stream().forEach(theNote -> theNote.setPatient(patientService.get(theNote.getPatientId())));
+        } else {
+            listNote = new ArrayList<>();
+        }
 
         model.addAttribute("notes", listNote);
 
@@ -98,6 +102,14 @@ public class NoteController {
         model.addAttribute("notes", noteService.getAll());
 
         return "redirect:/patient/info/" + noteCreated.getPatientId();
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteNote(@PathVariable("id") String id) {
+        NoteBean note = noteService.get(id);
+        noteService.delete(id);
+
+        return "redirect:/patient/info/" + note.getPatientId();
     }
 
 

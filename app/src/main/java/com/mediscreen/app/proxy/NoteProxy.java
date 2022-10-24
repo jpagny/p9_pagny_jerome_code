@@ -26,7 +26,7 @@ public interface NoteProxy {
     NoteBean create(@RequestBody NoteBean note);
 
     @DeleteMapping(value="/note/{id}")
-    NoteBean create(@PathVariable("id") long id);
+    NoteBean delete(@PathVariable("id") String id);
 
 
 }

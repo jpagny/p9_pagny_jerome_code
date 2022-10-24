@@ -39,4 +39,9 @@ public class NoteService implements INoteService {
         return noteProxy.create(note);
     }
 
+    @Override
+    public void delete(String id){
+        noteProxy.delete(id);
+    }
+
 }
