@@ -5,32 +5,7 @@
 <body>
 <div class="container">
     <div th:insert="nav" id="nav"></div>
-    <div class="row"><h2>Patient info</h2></div>
-    <div class="row">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Sexe</th>
-                <th>Date de naissance</th>
-                <th>Adresse</th>
-                <th>Numéro de téléphone</th>
-            </tr>
-            </thead>
-            <tr>
-                <td th:text="${patient.lastName}"/>
-                <td th:text="${patient.firstName}"/>
-                <td th:text="${patient.sex}"/>
-                <td th:text="${patient.birthdate}"/>
-                <td th:text="${patient.address}"/>
-                <td th:text="${patient.phone}"/>
-            </tr>
-        </table>
-    </div>
-
-    <br/>
-    <div class="row"><h2>Notes</h2></div>
+    <div class="row"><h2>Note list</h2></div>
     <br/>
     <div class="row">
         <a href="/note/create" class="btn btn-primary btn-sm">Add New</a>
@@ -41,6 +16,7 @@
             <thead>
             <tr>
                 <th>Id</th>
+                <th>Patient</th>
                 <th>Date</th>
                 <th>Note</th>
                 <th>Action</th>
@@ -59,7 +35,6 @@
             </tbody>
         </table>
     </div>
-</div>
 </div>
 </body>
 </html>
