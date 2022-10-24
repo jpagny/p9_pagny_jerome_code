@@ -13,17 +13,20 @@ public interface NoteProxy {
     @GetMapping(value = "/note/list/")
     ArrayList<NoteBean> getAll();
 
+    @GetMapping(value = "/note/{patientId}/list/")
+    ArrayList<NoteBean> getAllById(@PathVariable Long patientId);
+
     @GetMapping( value = "/note/{id}")
-    PatientBean get(@PathVariable("id") long id);
+    NoteBean get(@PathVariable("id") String id);
 
     @PutMapping(value = "/note/")
-    PatientBean update(@RequestBody NoteBean patientBean);
+    NoteBean update(@RequestBody NoteBean note);
 
     @PostMapping(value="/note/")
-    PatientBean create(@RequestBody NoteBean patientBean);
+    NoteBean create(@RequestBody NoteBean note);
 
     @DeleteMapping(value="/note/{id}")
-    PatientBean create(@PathVariable("id") long id);
+    NoteBean create(@PathVariable("id") long id);
 
 
 }

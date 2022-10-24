@@ -51,6 +51,14 @@ public class NoteService implements INoteService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<NoteDTO> getAllByPatientId(Long patientId) {
+        return noteRepository.findAllByPatientId(patientId)
+                .stream()
+                .map(history -> modelMapper.map(history, NoteDTO.class))
+                .collect(Collectors.toList());
+    }
+
     /**
      * Update a history
      *

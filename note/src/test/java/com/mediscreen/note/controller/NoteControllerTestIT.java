@@ -70,6 +70,17 @@ public class NoteControllerTestIT {
     }
 
     @Test
+    @DisplayName("Should be returned 200 when get all notes by patient Id")
+    public void should_beReturned200_when_getAllNotesByPatientId() throws Exception {
+
+        List<NoteDTO> allNotes = noteService.getAllByPatientId(1L);
+
+        mockMvc.perform(get("/note/1/list"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(allNotes.get(0).getId())));
+    }
+
+    @Test
     @DisplayName("Should be returned 204 when note list is empty")
     public void should_beReturned200_when_noteListIsEmpty() throws Exception {
         noteService.delete("6177a31824f1d205e0b0692d");

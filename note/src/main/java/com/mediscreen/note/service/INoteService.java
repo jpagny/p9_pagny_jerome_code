@@ -10,6 +10,8 @@ public interface INoteService {
 
     List<NoteDTO> getAll();
 
+    List<NoteDTO> getAllByPatientId(Long patientId);
+
     NoteDTO update(NoteDTO noteDTO) throws ResourceNotFoundException;
 
     NoteDTO create(NoteDTO noteDTO);

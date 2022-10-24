@@ -43,7 +43,7 @@ public class NoteServiceTest {
     public void should_beReturnedNote_when_theNoteIsFoundById() throws ResourceNotFoundException {
 
         NoteDTO note = new NoteDTO("1", 1L, LocalDateTime.now(), "Test");
-        NoteDocument noteToFind = modelMapper.map(note,NoteDocument.class);
+        NoteDocument noteToFind = modelMapper.map(note, NoteDocument.class);
 
         when(noteRepository.findById(any(String.class))).thenReturn(Optional.of(noteToFind));
 
@@ -86,7 +86,7 @@ public class NoteServiceTest {
     public void should_beReturnedNoteList_when_aNoteIsUpdated() throws ResourceNotFoundException {
         NoteDTO noteToUpdate = new NoteDTO("1", 1L, LocalDateTime.now(), "Test");
         noteToUpdate.setNote("Note modified");
-        NoteDocument noteDocumentUpdated = modelMapper.map(noteToUpdate,NoteDocument.class);
+        NoteDocument noteDocumentUpdated = modelMapper.map(noteToUpdate, NoteDocument.class);
 
         when(noteRepository.findById(any(String.class))).thenReturn(Optional.of(noteDocumentUpdated));
         when(noteRepository.save(any(NoteDocument.class))).thenReturn(noteDocumentUpdated);
@@ -151,5 +151,24 @@ public class NoteServiceTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    @DisplayName("Should be returned a list of notes from a patient when get all notes by patientID")
+    public void should_beReturnedAListOfNoteFromAPatient_when_getAllNotesByPatientID() {
+        List<NoteDTO> listNote = new ArrayList<>();
+        listNote.add(new NoteDTO("1", 1L, LocalDateTime.now(), "Test"));
+        listNote.add(new NoteDTO("2", 1L, LocalDateTime.now(), "Test2"));
+        listNote.add(new NoteDTO("2", 2L, LocalDateTime.now(), "Test3"));
+
+        when(noteRepository.findAllByPatientId(1L)).thenReturn(listNote.stream()
+                .filter(note -> note.getPatientId().equals(1L))
+                .map(theNote -> modelMapper.map(theNote, NoteDocument.class))
+                .collect(Collectors.toList()));
+
+        List<NoteDTO> listNotesFound = noteService.getAllByPatientId(1L);
+
+        assertEquals(2, listNotesFound.size());
+    }
+
 
 }

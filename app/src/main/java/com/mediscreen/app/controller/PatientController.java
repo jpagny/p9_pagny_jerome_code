@@ -1,6 +1,8 @@
 package com.mediscreen.app.controller;
 
+import com.mediscreen.app.bean.NoteBean;
 import com.mediscreen.app.bean.PatientBean;
+import com.mediscreen.app.service.impliment.NoteService;
 import com.mediscreen.app.service.impliment.PatientService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,12 +22,15 @@ import java.util.ArrayList;
 public class PatientController {
 
     private final PatientService patientService;
+    private final NoteService noteService;
 
     @GetMapping("/info/{id}")
     public String getPatient(Model model, @PathVariable Long id) {
-        PatientBean response = patientService.get(id);
+        PatientBean patient = patientService.get(id);
+        ArrayList<NoteBean> noteBeans = noteService.getAllByPatientId(id);
 
-        model.addAttribute("patient", response);
+        model.addAttribute("patient", patient);
+        model.addAttribute("notes", noteBeans);
 
         return "patient/info";
     }

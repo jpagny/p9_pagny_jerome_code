@@ -28,6 +28,32 @@
             </tr>
         </table>
     </div>
+    <br/>
+    <div class="row"><h2>Notes</h2></div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Note</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="note: ${notes}">
+                <td th:text="${note.id}"/>
+                <td th:text="${note.date}"/>
+                <td th:text="${note.note}"/>
+                <td style="width: 15%" class="text-center">
+                    <!-- <a th:href="@{/note/info/{id}(id=${note.getId()})}">Detail</a> |
+                    <a th:href="@{/note/update/{id}(id=${note.getId()})}">Edit</a>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </div>
 </body>
 </html>

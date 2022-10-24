@@ -20,7 +20,7 @@ public class NoteController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<NoteDTO>> getAllHistories() {
+    public ResponseEntity<List<NoteDTO>> getAll() {
         List<NoteDTO> histories = noteService.getAll();
 
         if (histories.isEmpty()) {
@@ -30,8 +30,19 @@ public class NoteController {
         return new ResponseEntity<>(histories, HttpStatus.OK);
     }
 
+    @GetMapping("/{patientId}/list")
+    public ResponseEntity<List<NoteDTO>> getAll(@PathVariable("patientId") Long patientId) {
+        List<NoteDTO> histories = noteService.getAllByPatientId(patientId);
+
+        if (histories.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(histories, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<NoteDTO> getHistory(@PathVariable("id") String id) {
+    public ResponseEntity<NoteDTO> get(@PathVariable("id") String id) {
         try {
             NoteDTO history = noteService.get(id);
             return new ResponseEntity<>(history, HttpStatus.OK);
