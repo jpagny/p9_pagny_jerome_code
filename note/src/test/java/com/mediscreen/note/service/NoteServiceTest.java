@@ -69,8 +69,8 @@ public class NoteServiceTest {
     @DisplayName("Should be returned a list of notes when get all notes")
     public void should_beReturnedAListOfNote_when_getAllNotes() {
         List<NoteDTO> listNote = new ArrayList<>();
+        listNote.add(new NoteDTO("2", 1L, LocalDateTime.now().plusDays(2), "Test2"));
         listNote.add(new NoteDTO("1", 1L, LocalDateTime.now(), "Test"));
-        listNote.add(new NoteDTO("2", 1L, LocalDateTime.now(), "Test2"));
 
         when(noteRepository.findAll()).thenReturn(listNote.stream()
                 .map(theNote -> modelMapper.map(theNote, NoteDocument.class))

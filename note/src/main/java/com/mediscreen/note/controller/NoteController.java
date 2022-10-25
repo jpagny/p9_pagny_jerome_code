@@ -21,50 +21,50 @@ public class NoteController {
 
     @GetMapping("/list")
     public ResponseEntity<List<NoteDTO>> getAll() {
-        List<NoteDTO> histories = noteService.getAll();
+        List<NoteDTO> notes = noteService.getAll();
 
-        if (histories.isEmpty()) {
+        if (notes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(histories, HttpStatus.OK);
+        return new ResponseEntity<>(notes, HttpStatus.OK);
     }
 
     @GetMapping("/{patientId}/list")
     public ResponseEntity<List<NoteDTO>> getAll(@PathVariable("patientId") Long patientId) {
-        List<NoteDTO> histories = noteService.getAllByPatientId(patientId);
+        List<NoteDTO> notes = noteService.getAllByPatientId(patientId);
 
-        if (histories.isEmpty()) {
+        if (notes.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(histories, HttpStatus.OK);
+        return new ResponseEntity<>(notes, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<NoteDTO> get(@PathVariable("id") String id) {
         try {
-            NoteDTO history = noteService.get(id);
-            return new ResponseEntity<>(history, HttpStatus.OK);
+            NoteDTO note = noteService.get(id);
+            return new ResponseEntity<>(note, HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/")
-    public ResponseEntity<NoteDTO> update(@RequestBody NoteDTO history) {
+    public ResponseEntity<NoteDTO> update(@RequestBody NoteDTO note) {
         try {
-            NoteDTO historyUpdated = noteService.update(history);
-            return new ResponseEntity<>(historyUpdated, HttpStatus.OK);
+            NoteDTO noteUpdated = noteService.update(note);
+            return new ResponseEntity<>(noteUpdated, HttpStatus.OK);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/")
-    public ResponseEntity<NoteDTO> create(@RequestBody NoteDTO history) {
-        NoteDTO historyCreated = noteService.create(history);
-        return new ResponseEntity<>(historyCreated, HttpStatus.OK);
+    public ResponseEntity<NoteDTO> create(@RequestBody NoteDTO note) {
+        NoteDTO noteCreated = noteService.create(note);
+        return new ResponseEntity<>(noteCreated, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

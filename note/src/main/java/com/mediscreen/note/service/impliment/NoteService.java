@@ -1,13 +1,14 @@
 package com.mediscreen.note.service.impliment;
 
+import com.mediscreen.note.document.NoteDocument;
 import com.mediscreen.note.dto.NoteDTO;
 import com.mediscreen.note.exception.ResourceNotFoundException;
-import com.mediscreen.note.document.NoteDocument;
 import com.mediscreen.note.repository.NoteRepository;
 import com.mediscreen.note.service.INoteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,7 @@ public class NoteService implements INoteService {
         return noteRepository.findAll()
                 .stream()
                 .map(history -> modelMapper.map(history, NoteDTO.class))
+                .sorted(Comparator.comparing(NoteDTO::getDate).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -56,6 +58,7 @@ public class NoteService implements INoteService {
         return noteRepository.findAllByPatientId(patientId)
                 .stream()
                 .map(history -> modelMapper.map(history, NoteDTO.class))
+                .sorted(Comparator.comparing(NoteDTO::getDate).reversed())
                 .collect(Collectors.toList());
     }
 

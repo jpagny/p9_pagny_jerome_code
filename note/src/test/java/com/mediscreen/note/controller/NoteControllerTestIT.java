@@ -70,6 +70,16 @@ public class NoteControllerTestIT {
     }
 
     @Test
+    @DisplayName("Should be returned 204 when note list is empty")
+    public void should_beReturned204_when_noteListIsEmpty() throws Exception {
+        noteService.delete("6177a31824f1d205e0b0692d");
+        noteService.delete("6177a31824f1d205e0b0692c");
+
+        mockMvc.perform(get("/note/list"))
+                .andExpect(status().is(204));
+    }
+
+    @Test
     @DisplayName("Should be returned 200 when get all notes by patient Id")
     public void should_beReturned200_when_getAllNotesByPatientId() throws Exception {
 
@@ -81,12 +91,14 @@ public class NoteControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be returned 204 when note list is empty")
-    public void should_beReturned200_when_noteListIsEmpty() throws Exception {
+    @DisplayName("Should be returned 204 when note list is empty fetched by patient id")
+    public void should_beReturned204_when_noteListFetchedByPatientIDIsEmpty() throws Exception {
         noteService.delete("6177a31824f1d205e0b0692d");
         noteService.delete("6177a31824f1d205e0b0692c");
 
-        mockMvc.perform(get("/note/list"))
+        List<NoteDTO> allNotes = noteService.getAllByPatientId(1L);
+
+        mockMvc.perform(get("/note/1/list"))
                 .andExpect(status().is(204));
     }
 
