@@ -12,7 +12,7 @@ public enum KeyWordTrigger {
     VERTIGE("Vertige"),
     RECHUTE("Rechute"),
     REACTION("Réaction"),
-    ANTICOPRS("Anticorps");
+    ANTICORPS("Anticorps");
 
     public final String label;
 

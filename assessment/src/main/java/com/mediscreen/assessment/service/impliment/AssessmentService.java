@@ -37,7 +37,6 @@ public class AssessmentService implements IAssessmentService {
         riskLevel = checkLevelRisk(patient, scoreTrigger);
 
         return new AssessmentDTO(LocalDateTime.now(), patient, scoreTrigger, riskLevel);
-
     }
 
     private int getScoreTriggerByAllNotes(List<NoteBean> listNotes) {
@@ -53,7 +52,7 @@ public class AssessmentService implements IAssessmentService {
         AtomicInteger scoreTrigger = new AtomicInteger();
 
         keyWords.parallelStream().forEach(theKey -> {
-            if (note.getNote().toLowerCase().contains(theKey.name().toLowerCase())) {
+            if (note.getNote().toLowerCase().contains(theKey.label.toLowerCase())) {
                 scoreTrigger.getAndIncrement();
             }
         });
