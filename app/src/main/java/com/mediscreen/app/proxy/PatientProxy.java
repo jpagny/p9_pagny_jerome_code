@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
-@FeignClient(name = "patient", url = "${patient.service.url}")
+@FeignClient(name = "patient-api")
 public interface PatientProxy {
 
     @GetMapping(value = "/patient/list/")

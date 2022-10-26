@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
-@FeignClient(name = "note", url = "${note.service.url}")
+@FeignClient(name = "note-api")
 public interface NoteProxy {
 
     @GetMapping(value = "/note/list/")

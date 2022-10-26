@@ -65,23 +65,41 @@ app/build/
 !app/**/src/main/**/build/
 !app/**/src/test/**/build/
 
-### history ###
+### note ###
 
-history/.mvn
+note/.mvn
 
-history/.idea
-history/*.iws
-history/*.iml
-history/*.ipr
+note/.idea
+note/*.iws
+note/*.iml
+note/*.ipr
 
-history/nbproject/private/
-history/nbbuild/
-history/dist/
-history/nbdist/
-history/.nb-gradle/
-history/build/
-!history/**/src/main/**/build/
-!history/**/src/test/**/build/
+note/nbproject/private/
+note/nbbuild/
+note/dist/
+note/nbdist/
+note/.nb-gradle/
+note/build/
+!note/**/src/main/**/build/
+!note/**/src/test/**/build/
+
+### eureka ###
+
+eureka/.mvn
+
+eureka/.idea
+eureka/*.iws
+eureka/*.iml
+eureka/*.ipr
+
+eureka/nbproject/private/
+eureka/nbbuild/
+eureka/dist/
+eureka/nbdist/
+eureka/.nb-gradle/
+eureka/build/
+!eureka/**/src/main/**/build/
+!eureka/**/src/test/**/build/
 
 
 

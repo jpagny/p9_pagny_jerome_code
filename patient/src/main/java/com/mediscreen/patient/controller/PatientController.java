@@ -28,10 +28,8 @@ public class PatientController {
 
     @GetMapping(value = "/list", produces = {"application/json"})
     @Operation(summary = "Find all patients", description = "Also returns a link to retrieve all patients")
-    @ApiResponse(responseCode = "200",
-            content = @Content(array = @ArraySchema(schema = @Schema(implementation = PatientDTO.class))))
-    @ApiResponse(responseCode = "204", description = "No Content",
-            content = @Content())
+    @ApiResponse(responseCode = "200", content = @Content(array = @ArraySchema(schema = @Schema(implementation = PatientDTO.class))))
+    @ApiResponse(responseCode = "204", description = "No Content", content = @Content())
     public ResponseEntity<List<PatientDTO>> getAllPatients() {
         List<PatientDTO> patients = patientService.getAll();
 
@@ -44,13 +42,9 @@ public class PatientController {
 
     @GetMapping(value = "/{id}", produces = {"application/json"})
     @Operation(summary = "Find a patient by id", description = "Also returns a link to patient information")
-    @ApiResponse(responseCode = "200", description = "Patient fetched",
-            content = @Content(schema = @Schema(implementation = PatientDTO.class)))
-    @ApiResponse(responseCode = "404", description = "No found",
-            content = @Content())
-    public ResponseEntity<PatientDTO> getPatientById(
-            @Parameter(description = "Long id.", required = true)
-            @PathVariable("id") Long id) {
+    @ApiResponse(responseCode = "200", description = "Patient fetched", content = @Content(schema = @Schema(implementation = PatientDTO.class)))
+    @ApiResponse(responseCode = "404", description = "No found", content = @Content())
+    public ResponseEntity<PatientDTO> getPatientById(@Parameter(description = "Long id.", required = true) @PathVariable("id") Long id) {
         try {
             PatientDTO patient = patientService.get(id);
             return new ResponseEntity<>(patient, HttpStatus.OK);
@@ -61,13 +55,9 @@ public class PatientController {
 
     @PutMapping(value = "/", produces = {"application/json"})
     @Operation(summary = "Update a patient", description = "Also returns a link to patient updated")
-    @ApiResponse(responseCode = "200", description = "Patient updated",
-            content = @Content(schema = @Schema(implementation = PatientDTO.class)))
-    @ApiResponse(responseCode = "404", description = "No found",
-            content = @Content())
-    public ResponseEntity<PatientDTO> update(
-            @Parameter(description = "PatientDTO patient.", required = true, schema = @Schema(implementation = PatientDTO.class))
-            @RequestBody PatientDTO patient) {
+    @ApiResponse(responseCode = "200", description = "Patient updated", content = @Content(schema = @Schema(implementation = PatientDTO.class)))
+    @ApiResponse(responseCode = "404", description = "No found", content = @Content())
+    public ResponseEntity<PatientDTO> update(@Parameter(description = "PatientDTO patient.", required = true, schema = @Schema(implementation = PatientDTO.class)) @RequestBody PatientDTO patient) {
         try {
             PatientDTO patientUpdated = patientService.update(patient);
             return new ResponseEntity<>(patientUpdated, HttpStatus.OK);
@@ -78,13 +68,9 @@ public class PatientController {
 
     @PostMapping(value = "/", produces = {"application/json"})
     @Operation(summary = "Create a patient", description = "Also returns a link to patient created")
-    @ApiResponse(responseCode = "200", description = "Patient created",
-            content = @Content(schema = @Schema(implementation = PatientDTO.class)))
-    @ApiResponse(responseCode = "409", description = "Conflict - patient is already exist in our database",
-            content = @Content())
-    public ResponseEntity<PatientDTO> create(
-            @Parameter(description = "PatientDTO patient.", required = true, schema = @Schema(implementation = PatientDTO.class))
-            @RequestBody PatientDTO patient) {
+    @ApiResponse(responseCode = "200", description = "Patient created", content = @Content(schema = @Schema(implementation = PatientDTO.class)))
+    @ApiResponse(responseCode = "409", description = "Conflict - patient is already exist in our database", content = @Content())
+    public ResponseEntity<PatientDTO> create(@Parameter(description = "PatientDTO patient.", required = true, schema = @Schema(implementation = PatientDTO.class)) @RequestBody PatientDTO patient) {
         try {
             PatientDTO patientCreated = patientService.create(patient);
             return new ResponseEntity<>(patientCreated, HttpStatus.OK);
@@ -95,13 +81,9 @@ public class PatientController {
 
     @DeleteMapping(value = "/{id}", produces = {"application/json"})
     @Operation(summary = "Delete a patient", description = "Patient will be deleted")
-    @ApiResponse(responseCode = "200", description = "Patient deleted",
-            content = @Content())
-    @ApiResponse(responseCode = "404", description = "Not found",
-            content = @Content())
-    public ResponseEntity<String> delete(
-            @Parameter(description = "Long id.", required = true)
-            @PathVariable("id") Long id) {
+    @ApiResponse(responseCode = "200", description = "Patient deleted", content = @Content())
+    @ApiResponse(responseCode = "404", description = "Not found", content = @Content())
+    public ResponseEntity<String> delete(@Parameter(description = "Long id.", required = true) @PathVariable("id") Long id) {
         try {
             patientService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
