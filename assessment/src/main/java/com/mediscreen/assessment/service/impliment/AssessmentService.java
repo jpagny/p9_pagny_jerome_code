@@ -9,6 +9,9 @@ import com.mediscreen.assessment.proxy.NoteProxy;
 import com.mediscreen.assessment.proxy.PatientProxy;
 import com.mediscreen.assessment.service.IAssessmentService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class AssessmentService implements IAssessmentService {
 
@@ -41,9 +45,10 @@ public class AssessmentService implements IAssessmentService {
 
     private int getScoreTriggerByAllNotes(List<NoteBean> listNotes) {
         AtomicInteger scoreTrigger = new AtomicInteger();
-        listNotes.parallelStream().forEach(theNote ->
-                scoreTrigger.addAndGet(getScoreTriggerByNote(theNote)
-                ));
+        listNotes.stream().forEach(theNote -> {
+            scoreTrigger.addAndGet(getScoreTriggerByNote(theNote));
+        });
+        log.debug("Total score for all notes is : " + scoreTrigger.get());
         return scoreTrigger.get();
     }
 
@@ -51,12 +56,13 @@ public class AssessmentService implements IAssessmentService {
         List<KeyWordTrigger> keyWords = new ArrayList<>(Arrays.asList(KeyWordTrigger.values()));
         AtomicInteger scoreTrigger = new AtomicInteger();
 
-        keyWords.parallelStream().forEach(theKey -> {
+        keyWords.stream().forEach(theKey -> {
             if (note.getNote().toLowerCase().contains(theKey.label.toLowerCase())) {
+                log.debug("Key word found : " + theKey.label.toLowerCase());
                 scoreTrigger.getAndIncrement();
             }
         });
-
+        log.debug("Total score for this note is : " + scoreTrigger.get());
         return scoreTrigger.get();
     }
 
