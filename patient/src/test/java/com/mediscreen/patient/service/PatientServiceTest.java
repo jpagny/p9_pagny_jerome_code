@@ -43,8 +43,8 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be returned patient when the patient is found by id")
     public void should_beReturnedPatient_when_thePatientIsFoundById() throws ResourceNotFoundException {
-        PatientDTO patient = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
-        when(patientRepository.findById(any(Long.class))).thenReturn(Optional.of(new PatientEntity(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36")));
+        PatientDTO patient = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36");
+        when(patientRepository.findById(any(Long.class))).thenReturn(Optional.of(new PatientEntity(1L, "john", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36")));
 
         PatientDTO patientFound = patientService.get(1L);
 
@@ -68,8 +68,8 @@ public class PatientServiceTest {
     @DisplayName("Should be returned a list of patient when get all patients")
     public void should_beReturnedAListOfPatient_when_getAllPatients() {
         List<PatientDTO> listPatients = new ArrayList<>();
-        listPatients.add(new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36"));
-        listPatients.add(new PatientDTO(1L, "john", "pamela", LocalDate.now(), Gender.WOMEN, "rue du java", "06.45.78.12.35"));
+        listPatients.add(new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36"));
+        listPatients.add(new PatientDTO(1L, "john", "pamela", LocalDate.now(), Gender.F, "rue du java", "06.45.78.12.35"));
 
         when(patientRepository.findAll()).thenReturn(listPatients.stream()
                 .map(thePatient -> modelMapper.map(thePatient, PatientEntity.class))
@@ -83,10 +83,10 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be returned patient when a patient is updated")
     public void should_beReturnedPatientList_when_aPatientIsUpdated() throws ResourceNotFoundException {
-        PatientDTO patientToUpdate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
+        PatientDTO patientToUpdate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36");
         patientToUpdate.setLastName("johna");
 
-        PatientEntity patientEntity = new PatientEntity(1L, "johna", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
+        PatientEntity patientEntity = new PatientEntity(1L, "johna", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36");
 
         when(patientRepository.findById(any(Long.class))).thenReturn(Optional.of(patientEntity));
         when(patientRepository.save(any(PatientEntity.class))).thenReturn(patientEntity);
@@ -99,7 +99,7 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be exception when the patient to update doesn't exist")
     public void should_beException_when_thePatientToUpdateDoesntExist() {
-        PatientDTO patientToUpdate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
+        PatientDTO patientToUpdate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36");
 
         when(patientRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
@@ -114,7 +114,7 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be returned patient when a patient is created")
     public void should_beReturnedPatientList_when_aPatientIsCreated() throws ResourceAlreadyExistException {
-        PatientDTO patientToCreate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
+        PatientDTO patientToCreate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36");
         PatientEntity patient = modelMapper.map(patientToCreate, PatientEntity.class);
 
         when(patientRepository.findByLastNameAndFirstName(any(String.class), any(String.class)))
@@ -129,7 +129,7 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be exception when the patient to create is already exist")
     public void should_beException_when_thePatientToCreateIsAlreadyExist() {
-        PatientDTO patientToCreate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
+        PatientDTO patientToCreate = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36");
         PatientEntity patient = modelMapper.map(patientToCreate, PatientEntity.class);
 
         when(patientRepository.findByLastNameAndFirstName(any(String.class), any(String.class)))
@@ -145,7 +145,7 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be used delete method when patient is deleted")
     public void should_beUsedDeleteMethod_when_patientIsDeleted() throws ResourceNotFoundException {
-        PatientDTO patientToDelete = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.MEN, "rue du java", "06.45.78.12.36");
+        PatientDTO patientToDelete = new PatientDTO(1L, "john", "rick", LocalDate.now(), Gender.M, "rue du java", "06.45.78.12.36");
         PatientEntity patient = modelMapper.map(patientToDelete, PatientEntity.class);
 
         when(patientRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(patient));

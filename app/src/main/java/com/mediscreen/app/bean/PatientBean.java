@@ -14,7 +14,7 @@ public class PatientBean {
     private String lastName;
     private String firstName;
     private String birthdate;
-    private Gender sex;
+    private Gender gender;
     private String address;
     private String phone;
 

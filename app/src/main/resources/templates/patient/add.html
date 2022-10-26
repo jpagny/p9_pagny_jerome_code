@@ -43,9 +43,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Gender</label>
                 <div class="col-sm-10">
-                    <label class="checkbox-inline"><input type="radio" th:field="*{sex}" th:value="MEN"> Men</label>
-                    <label class="checkbox-inline"><input type="radio" th:field="*{sex}" th:value="WOMEN"> Women</label>
-                    <p class="text-danger" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></p>
+                    <label class="checkbox-inline"><input type="radio" th:field="*{gender}" th:value="M"> Man</label>
+                    <label class="checkbox-inline"><input type="radio" th:field="*{gender}" th:value="F"> Woman</label>
+                    <p class="text-danger" th:if="${#fields.hasErrors('sex')}" th:errors="*{gender}"></p>
                 </div>
             </div>
 

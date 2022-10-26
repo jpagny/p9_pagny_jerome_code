@@ -29,7 +29,7 @@ public class PatientEntity {
     private LocalDate birthdate;
 
     @Enumerated(EnumType.STRING)
-    private Gender sex;
+    private Gender gender;
 
     private String address;
 

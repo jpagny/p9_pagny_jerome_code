@@ -20,7 +20,7 @@ public class PatientDTO {
 
     private LocalDate birthdate;
 
-    private Gender sex;
+    private Gender gender;
 
     private String address;
 

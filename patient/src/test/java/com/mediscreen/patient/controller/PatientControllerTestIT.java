@@ -113,7 +113,7 @@ public class PatientControllerTestIT {
     @Test
     @DisplayName("Should be returned 200 when patient create is success")
     public void should_beReturned200_when_patientCreateIsSuccess() throws Exception {
-        PatientDTO thePatient = new PatientDTO(3L, "Test", "Test2", LocalDate.now(), Gender.WOMEN, "xx", "xx");
+        PatientDTO thePatient = new PatientDTO(3L, "Test", "Test2", LocalDate.now(), Gender.F, "xx", "xx");
         String json = Helper.mapToJson(thePatient);
 
         mockMvc.perform(post("/patient/")
@@ -127,7 +127,7 @@ public class PatientControllerTestIT {
     @Test
     @DisplayName("Should be returned 409 when patient create is already exist")
     public void should_beReturned503_when_patientCreateIsAlreadyExist() throws Exception {
-        PatientDTO thePatient = new PatientDTO(4L, "john", "jonathan", LocalDate.now(), Gender.WOMEN, "xx", "xx");
+        PatientDTO thePatient = new PatientDTO(4L, "john", "jonathan", LocalDate.now(), Gender.F, "xx", "xx");
         String json = Helper.mapToJson(thePatient);
 
         mockMvc.perform(post("/patient/")

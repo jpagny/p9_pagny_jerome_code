@@ -101,5 +101,22 @@ eureka/build/
 !eureka/**/src/main/**/build/
 !eureka/**/src/test/**/build/
 
+### assessment ###
+
+assessment/.mvn
+
+assessment/.idea
+assessment/*.iws
+assessment/*.iml
+assessment/*.ipr
+
+assessment/nbproject/private/
+assessment/nbbuild/
+assessment/dist/
+assessment/nbdist/
+assessment/.nb-gradle/
+assessment/build/
+!assessment/**/src/main/**/build/
+!assessment/**/src/test/**/build/
 
 
