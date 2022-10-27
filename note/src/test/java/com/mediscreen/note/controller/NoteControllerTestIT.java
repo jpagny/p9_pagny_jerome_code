@@ -1,6 +1,7 @@
 package com.mediscreen.note.controller;
 
 import com.mediscreen.note.dto.NoteDTO;
+import com.mediscreen.note.exception.ResourceNotFoundException;
 import com.mediscreen.note.helper.Helper;
 import com.mediscreen.note.service.impliment.NoteService;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +47,7 @@ public class NoteControllerTestIT {
     @Test
     @DisplayName("Should be returned 200 when get note with right id")
     public void should_beReturned200_when_getNoteWithRightId() throws Exception {
-        mockMvc.perform(get("/note/6177a31824f1d205e0b0692d"))
+        mockMvc.perform(get("/note/abcd11"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("note")));
     }
@@ -72,8 +73,16 @@ public class NoteControllerTestIT {
     @Test
     @DisplayName("Should be returned 204 when note list is empty")
     public void should_beReturned204_when_noteListIsEmpty() throws Exception {
-        noteService.delete("6177a31824f1d205e0b0692d");
-        noteService.delete("6177a31824f1d205e0b0692c");
+
+        List<NoteDTO> allNotes = noteService.getAll();
+
+        allNotes.forEach(theNote -> {
+            try {
+                noteService.delete(theNote.getId());
+            } catch (ResourceNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         mockMvc.perform(get("/note/list"))
                 .andExpect(status().is(204));
@@ -93,10 +102,15 @@ public class NoteControllerTestIT {
     @Test
     @DisplayName("Should be returned 204 when note list is empty fetched by patient id")
     public void should_beReturned204_when_noteListFetchedByPatientIDIsEmpty() throws Exception {
-        noteService.delete("6177a31824f1d205e0b0692d");
-        noteService.delete("6177a31824f1d205e0b0692c");
-
         List<NoteDTO> allNotes = noteService.getAllByPatientId(1L);
+
+        allNotes.forEach(theNote -> {
+            try {
+                noteService.delete(theNote.getId());
+            } catch (ResourceNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         mockMvc.perform(get("/note/1/list"))
                 .andExpect(status().is(204));
@@ -106,7 +120,7 @@ public class NoteControllerTestIT {
     @DisplayName("Should be returned 200 when note updated is success")
     public void should_beReturned200_when_noteUpdateIsSuccess() throws Exception {
 
-        NoteDTO theNote = noteService.get("6177a31824f1d205e0b0692d");
+        NoteDTO theNote = noteService.get("abcd11");
         theNote.setNote("Note modified");
         String json = Helper.mapToJson(theNote);
 
@@ -121,7 +135,7 @@ public class NoteControllerTestIT {
     @DisplayName("Should be returned 404 when note updated doesnt exist")
     public void should_beReturned404_when_noteUpdateDoesntExist() throws Exception {
 
-        NoteDTO theNote = noteService.get("6177a31824f1d205e0b0692d");
+        NoteDTO theNote = noteService.get("abcd11");
         theNote.setId("unknown");
         String json = Helper.mapToJson(theNote);
 
@@ -147,7 +161,7 @@ public class NoteControllerTestIT {
     @Test
     @DisplayName("Should be returned 200 when note delete is success")
     public void should_beReturned200_when_noteDeleteIsSuccess() throws Exception {
-        mockMvc.perform(delete("/note/6177a31824f1d205e0b0692d"))
+        mockMvc.perform(delete("/note/abcd11"))
                 .andExpect(status().is(200))
                 .andReturn();
     }
