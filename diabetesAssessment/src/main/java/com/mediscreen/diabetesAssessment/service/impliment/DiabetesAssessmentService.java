@@ -41,6 +41,23 @@ public class DiabetesAssessmentService implements IDiabetesAssessmentService {
         return new DiabetesAssessmentDTO(LocalDateTime.now(), scoreTrigger, riskLevel);
     }
 
+    @Override
+    public List<PatientBean> getPatientByRiskLevel(String riskLevel) {
+
+        List<PatientBean> listPatient = patientProxy.getAll();
+        ArrayList<PatientBean> listPatientWithThisRiskLevel = new ArrayList<>();
+
+        listPatient.parallelStream().forEach(thePatient -> {
+            DiabetesAssessmentDTO diabetesAssessmentDTO = getAssessmentByPatient(thePatient.getId());
+            log.debug(diabetesAssessmentDTO.getRiskLevel().label);
+            if (diabetesAssessmentDTO.getRiskLevel().label.equals(riskLevel)) {
+                listPatientWithThisRiskLevel.add(thePatient);
+            }
+        });
+
+        return listPatientWithThisRiskLevel;
+    }
+
     private int getScoreTriggerByAllNotes(List<NoteBean> listNotes) {
 
         AtomicInteger scoreTrigger = new AtomicInteger();
