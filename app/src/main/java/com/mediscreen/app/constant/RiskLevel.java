@@ -2,8 +2,8 @@ package com.mediscreen.app.constant;
 
 public enum RiskLevel {
     IN_DANGER("in danger"),
-    BORDERLINE("borderline"),
     EARLY_ONSET("early onset"),
+    BORDERLINE("borderline"),
     NONE("none"),
     UNKNOWN("unknown");
 

@@ -2,6 +2,7 @@ package com.mediscreen.patient.controller;
 
 import com.mediscreen.patient.constant.Gender;
 import com.mediscreen.patient.dto.PatientDTO;
+import com.mediscreen.patient.exception.ResourceNotFoundException;
 import com.mediscreen.patient.helper.Helper;
 import com.mediscreen.patient.service.impliment.PatientService;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +50,7 @@ public class PatientControllerTestIT {
     public void should_beReturned200_when_getPatientWithRightId() throws Exception {
         mockMvc.perform(get("/patient/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("john")));
+                .andExpect(content().string(containsString("Lucas")));
     }
 
     @Test
@@ -73,8 +74,14 @@ public class PatientControllerTestIT {
     @Test
     @DisplayName("Should be returned 204 when patient list is empty")
     public void should_beReturned200_when_patientListIsEmpty() throws Exception {
-        patientService.delete(1L);
-        patientService.delete(2L);
+        List<PatientDTO> allPatients = patientService.getAll();
+        allPatients.forEach(thePatient -> {
+            try {
+                patientService.delete(thePatient.getId());
+            } catch (ResourceNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         mockMvc.perform(get("/patient/list"))
                 .andExpect(status().is(204));
@@ -85,14 +92,14 @@ public class PatientControllerTestIT {
     public void should_beReturned200_when_patientUpdateIsSuccess() throws Exception {
 
         PatientDTO thePatient = patientService.get(1L);
-        thePatient.setLastName("johna");
+        thePatient.setLastName("Johna");
         String json = Helper.mapToJson(thePatient);
 
         mockMvc.perform(put("/patient/")
                         .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.lastName").value("johna"))
-                .andExpect(jsonPath("$.firstName").value("jonathan"))
+                .andExpect(jsonPath("$.lastName").value("Johna"))
+                .andExpect(jsonPath("$.firstName").value("Ferguson"))
                 .andReturn();
     }
 
@@ -127,7 +134,7 @@ public class PatientControllerTestIT {
     @Test
     @DisplayName("Should be returned 409 when patient create is already exist")
     public void should_beReturned503_when_patientCreateIsAlreadyExist() throws Exception {
-        PatientDTO thePatient = new PatientDTO(4L, "john", "jonathan", LocalDate.now(), Gender.F, "xx", "xx");
+        PatientDTO thePatient = new PatientDTO(1L, "Lucas", "Ferguson", LocalDate.now(), Gender.F, "xx", "xx");
         String json = Helper.mapToJson(thePatient);
 
         mockMvc.perform(post("/patient/")
