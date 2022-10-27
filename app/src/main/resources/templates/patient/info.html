@@ -19,6 +19,7 @@
                 <th>Date de naissance</th>
                 <th>Adresse</th>
                 <th>Numéro de téléphone</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tr>
@@ -47,7 +48,7 @@
             <tr>
                 <td th:text="${assessment.date}"/>
                 <td th:text="${assessment.scoreTrigger}"/>
-                <td th:text="${assessment.riskLevel}"/>
+                <td th:text="${assessment.riskLevel.label}"/>
             </tr>
         </table>
     </div>
