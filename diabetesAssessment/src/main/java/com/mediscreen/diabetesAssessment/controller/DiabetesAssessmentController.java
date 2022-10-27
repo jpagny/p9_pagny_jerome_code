@@ -1,7 +1,6 @@
 package com.mediscreen.diabetesAssessment.controller;
 
 import com.mediscreen.diabetesAssessment.bean.PatientBean;
-import com.mediscreen.diabetesAssessment.constant.RiskLevel;
 import com.mediscreen.diabetesAssessment.dto.DiabetesAssessmentDTO;
 import com.mediscreen.diabetesAssessment.service.impliment.DiabetesAssessmentService;
 import lombok.AllArgsConstructor;

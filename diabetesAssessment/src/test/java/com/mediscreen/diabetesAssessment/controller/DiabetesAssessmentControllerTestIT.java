@@ -26,9 +26,6 @@ public class DiabetesAssessmentControllerTestIT {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    @Autowired
-    private DiabetesAssessmentService diabetesAssessmentService;
-
     @BeforeEach
     public void init() {
         mockMvc = MockMvcBuilders
