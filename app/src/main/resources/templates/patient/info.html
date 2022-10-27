@@ -6,6 +6,9 @@
 <div class="container">
     <div th:insert="nav" id="nav"></div>
     <div class="row"><h2>Patient info</h2></div>
+    <br>
+    <br/>
+    <div class="row"><h3>Patient</h3></div>
     <div class="row">
         <table class="table table-bordered">
             <thead>
@@ -30,8 +33,28 @@
     </div>
 
     <br/>
-    <div class="row"><h2>Notes</h2></div>
+
+    <div class="row"><h3>Assessment</h3></div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Risk level</th>
+            </tr>
+            </thead>
+            <tr>
+                <td th:text="${assessment.date}"/>
+                <td th:text="${assessment.scoreTrigger}"/>
+                <td th:text="${assessment.riskLevel}"/>
+            </tr>
+        </table>
+    </div>
+
     <br/>
+
+    <div class="row"><h3>Notes</h3></div>
     <div class="row">
         <a href="/note/create" class="btn btn-primary btn-sm">Add New</a>
     </div>

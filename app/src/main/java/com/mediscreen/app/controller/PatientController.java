@@ -1,7 +1,9 @@
 package com.mediscreen.app.controller;
 
+import com.mediscreen.app.bean.AssessmentBean;
 import com.mediscreen.app.bean.NoteBean;
 import com.mediscreen.app.bean.PatientBean;
+import com.mediscreen.app.service.impliment.AssessmentService;
 import com.mediscreen.app.service.impliment.NoteService;
 import com.mediscreen.app.service.impliment.PatientService;
 import lombok.AllArgsConstructor;
@@ -24,13 +26,17 @@ public class PatientController {
     private final PatientService patientService;
     private final NoteService noteService;
 
+    private final AssessmentService assessmentService;
+
     @GetMapping("/info/{id}")
     public String getPatient(Model model, @PathVariable Long id) {
         PatientBean patient = patientService.get(id);
         ArrayList<NoteBean> noteBeans = noteService.getAllByPatientId(id);
+        AssessmentBean assessment = assessmentService.getByPatientId(id);
 
         model.addAttribute("patient", patient);
         model.addAttribute("notes", noteBeans);
+        model.addAttribute("assessment", assessment);
 
         return "patient/info";
     }
