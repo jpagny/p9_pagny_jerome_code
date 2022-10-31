@@ -1,0 +1,132 @@
+version: '3'
+
+services:
+
+  eureka-server:
+    image: eureka
+    build:
+      context: eureka
+      dockerfile: Dockerfile
+    container_name: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - web
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - web
+
+  app:
+    image: app
+    build:
+      context: app
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - "9000:9000"
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+    networks:
+      - web
+    links:
+      - patient-api
+
+  patient-api:
+    image: patient-api
+    build:
+      context: patient
+      dockerfile: Dockerfile
+    container_name: patient-api
+    ports:
+      - "9001:9001"
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/mediscreen-patient
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+
+    networks:
+      - web
+    links:
+      - mysql-db
+
+  mysql-db:
+    image: mysql:latest
+    container_name: mysqldb
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootroot
+      - MYSQL_DATABASE=mediscreen-patient
+    ports:
+      - 3306:3306
+    networks:
+      - web
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - mysql-db
+    environment:
+      PMA_HOST: mysql-db
+    restart: always
+    ports:
+      - 8081:80
+    networks:
+      - web
+
+  note-api:
+    image: note-api
+    build:
+      context: note
+      dockerfile: Dockerfile
+    container_name: note-api
+    ports:
+      - "9002:9002"
+    environment:
+      - spring.data.mongodb.uri=mongodb://admin:password@mongo-db:27017/mediscreen_note
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+    networks:
+      - web
+    links:
+      - eureka-server
+      - mongo-db
+
+  mongo-db:
+    image: mongo:latest
+    container_name: docker-mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=mediscreen_note
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - web
+
+
+  diabetes_assessment-api:
+    image: diabetes_assessment-api
+    build:
+      context: diabetesAssessment
+      dockerfile: Dockerfile
+    container_name: diabetes_assessment-api
+    ports:
+      - "9003:9003"
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+    networks:
+      - web
+    links:
+      - eureka-server
+
+networks:
+  web:
+    driver: bridge
+
