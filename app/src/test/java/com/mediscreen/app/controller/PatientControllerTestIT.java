@@ -38,7 +38,7 @@ public class PatientControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be returned 200 when get bidList page")
+    @DisplayName("Should be returned 200 when get list patients page")
     public void should_beReturned200_when_getListPatientPage() throws Exception {
         this.mockMvc.perform(get("/patient/list"))
                 .andDo(print())

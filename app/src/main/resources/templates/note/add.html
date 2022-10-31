@@ -14,9 +14,9 @@
               style="width: 100%">
 
             <div class="form-group">
-                <label for="patient" class="col-sm-2 control-label">Select patient</label>
+                <label for="patientId" class="col-sm-2 control-label">Select patient</label>
                 <div class="col-sm-10">
-                    <select th:field="${note.patientId}" th:remove="all-but-first" id="patient" name="patientId">
+                    <select th:field="${note.patientId}" th:remove="all-but-first" id="patientId" name="patientId">
                         <option th:each="patient : ${patients}" th:value="${patient.id}"
                                 th:text="${patient.firstName + ' - ' + patient.lastName + ' (' + patient.birthdate + ')'}">
                             Patient
