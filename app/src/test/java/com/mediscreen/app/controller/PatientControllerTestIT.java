@@ -60,7 +60,9 @@ public class PatientControllerTestIT {
                         .param("lastName", "Test")
                         .param("firstName", "Test2")
                         .param("birthdate", "2020-02-15")
-                        .param("gender", "F"))
+                        .param("gender", "F")
+                        .param("address","2 Warren Street")
+                        .param("phone","387-866-1399"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/patient/list"))
                 .andReturn();
@@ -81,7 +83,7 @@ public class PatientControllerTestIT {
 
     @Test
     @DisplayName("Should be redirect to patient/list when patient updated is success")
-    public void should_beRedirectToBidListList_when_bidListUpdatedIsSuccess() throws Exception {
+    public void should_beRedirectToPatientList_when_patientUpdatedIsSuccess() throws Exception {
         mockMvc.perform(post("/patient/update/")
                         .param("id","1")
                         .param("lastName", "Lucasa")

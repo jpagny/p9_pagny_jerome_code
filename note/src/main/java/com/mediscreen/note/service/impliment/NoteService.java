@@ -8,6 +8,7 @@ import com.mediscreen.note.service.INoteService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,6 +56,13 @@ public class NoteService implements INoteService {
 
     @Override
     public List<NoteDTO> getAllByPatientId(Long patientId) {
+
+        List<NoteDocument> listNotes = noteRepository.findAllByPatientId(patientId);
+
+        if ( listNotes == null){
+            return new ArrayList<>();
+        }
+
         return noteRepository.findAllByPatientId(patientId)
                 .stream()
                 .map(history -> modelMapper.map(history, NoteDTO.class))
