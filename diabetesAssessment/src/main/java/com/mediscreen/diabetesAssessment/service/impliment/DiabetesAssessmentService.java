@@ -32,9 +32,11 @@ public class DiabetesAssessmentService implements IDiabetesAssessmentService {
 
         PatientBean patient = patientProxy.get(patientId);
         List<NoteBean> listNotes = noteProxy.getAllById(patientId);
+
         if ( listNotes == null){
             listNotes = new ArrayList<>();
         }
+
         RiskLevel riskLevel;
         int scoreTrigger;
 

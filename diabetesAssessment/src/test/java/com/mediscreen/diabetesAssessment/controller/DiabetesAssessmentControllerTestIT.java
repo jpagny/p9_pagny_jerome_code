@@ -35,7 +35,7 @@ public class DiabetesAssessmentControllerTestIT {
 
     @Test
     @DisplayName("Should be returned 200 when get patientId")
-    public void should_beReturned200_when_getNoteWithRightId() throws Exception {
+    public void should_beReturned200_when_getPatientId() throws Exception {
         mockMvc.perform(get("/assess/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("riskLevel")));
