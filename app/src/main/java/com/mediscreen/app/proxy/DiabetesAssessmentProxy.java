@@ -1,6 +1,6 @@
 package com.mediscreen.app.proxy;
 
-import com.mediscreen.app.bean.AssessmentBean;
+import com.mediscreen.app.bean.DiabetesAssessmentBean;
 import com.mediscreen.app.bean.PatientBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface DiabetesAssessmentProxy {
 
     @GetMapping("/assess/{patientId}")
-    AssessmentBean getById(@PathVariable Long patientId);
+    DiabetesAssessmentBean getById(@PathVariable Long patientId);
 
     @GetMapping("/assess/list/{riskLevel}")
     List<PatientBean> getByRiskLevel(@PathVariable String riskLevel);

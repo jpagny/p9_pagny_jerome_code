@@ -1,6 +1,6 @@
 package com.mediscreen.app.controller;
 
-import com.mediscreen.app.bean.AssessmentBean;
+import com.mediscreen.app.bean.DiabetesAssessmentBean;
 import com.mediscreen.app.bean.NoteBean;
 import com.mediscreen.app.bean.PatientBean;
 import com.mediscreen.app.service.impliment.DiabetesAssessmentService;
@@ -32,7 +32,7 @@ public class PatientController {
     public String getPatient(Model model, @PathVariable Long id) {
         PatientBean patient = patientService.get(id);
         ArrayList<NoteBean> noteBeans = noteService.getAllByPatientId(id);
-        AssessmentBean assessment = assessmentService.getByPatientId(id);
+        DiabetesAssessmentBean assessment = assessmentService.getByPatientId(id);
 
         model.addAttribute("patient", patient);
         model.addAttribute("notes", noteBeans);
