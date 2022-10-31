@@ -5,7 +5,6 @@ import com.mediscreen.app.bean.PatientBean;
 import com.mediscreen.app.constant.Gender;
 import com.mediscreen.app.proxy.NoteProxy;
 import com.mediscreen.app.service.impliment.NoteService;
-import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,18 +14,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class NoteServiceTest {
-
 
     @Mock
     private NoteProxy noteProxy;
@@ -92,7 +88,7 @@ public class NoteServiceTest {
     public void should_beReturnedNoteList_when_aNoteIsCreated() {
         PatientBean patient = new PatientBean(2L, "Test3", "Test 4",
                 LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
-        NoteBean noteToCreate = new NoteBean("1", 1L,patient, LocalDateTime.now(), "Test");
+        NoteBean noteToCreate = new NoteBean("1", 1L, patient, LocalDateTime.now(), "Test");
 
         when(noteProxy.create(any(NoteBean.class))).thenReturn(noteToCreate);
 
@@ -103,11 +99,11 @@ public class NoteServiceTest {
 
     @Test
     @DisplayName("Should be used delete method when note is deleted")
-    public void should_beUsedDeleteMethod_when_noteIsDeleted()  {
+    public void should_beUsedDeleteMethod_when_noteIsDeleted() {
         PatientBean patient = new PatientBean(2L, "Test3", "Test 4",
                 LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
 
-        NoteBean noteToDelete = new NoteBean("1", 1L, patient,LocalDateTime.now(), "Test");
+        NoteBean noteToDelete = new NoteBean("1", 1L, patient, LocalDateTime.now(), "Test");
 
         when(noteProxy.delete(any(String.class))).thenReturn(null);
 
@@ -125,8 +121,8 @@ public class NoteServiceTest {
                 LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
         List<NoteBean> listNote = new ArrayList<>();
         listNote.add(new NoteBean("1", patient1.getId(), patient1, LocalDateTime.now(), "Test"));
-        listNote.add(new NoteBean("2", patient1.getId(), patient1,LocalDateTime.now(), "Test2"));
-        listNote.add(new NoteBean("2", patient2.getId(), patient2,LocalDateTime.now(), "Test3"));
+        listNote.add(new NoteBean("2", patient1.getId(), patient1, LocalDateTime.now(), "Test2"));
+        listNote.add(new NoteBean("2", patient2.getId(), patient2, LocalDateTime.now(), "Test3"));
 
         when(noteProxy.getAllById(1L)).thenReturn((ArrayList<NoteBean>) listNote.stream()
                 .filter(note -> note.getPatientId().equals(1L))
@@ -136,9 +132,6 @@ public class NoteServiceTest {
 
         assertEquals(2, listNotesFound.size());
     }
-
-
-
 
 
 }
