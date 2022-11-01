@@ -2,7 +2,7 @@
 Application d'évaluation du diabète
 
 ---
-## H2 Technologies
+## Technologies
 - Java 17
 - maven 3.6.3
 - jacoco 0.8.8
