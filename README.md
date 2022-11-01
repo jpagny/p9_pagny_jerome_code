@@ -1,4 +1,4 @@
-# p9_pagny_jerome - Projet Mediscreen
+# Projet Mediscreen
 Application d'évaluation du diabète
 
 ---
