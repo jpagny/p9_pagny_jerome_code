@@ -90,6 +90,20 @@ public class PatientControllerTestIT {
                 .andReturn();
     }
 
+    @Test
+    @DisplayName("Should be redirect to 409 page when added patient already exist")
+    public void should_beRedirectTo409PageWhenAddedPatientAlreadyExist() throws Exception {
+        mockMvc.perform(post("/patient/create")
+                        .param("lastName", "Pippa")
+                        .param("firstName", "Rees")
+                        .param("birthdate", "1952-09-27")
+                        .param("gender", "F")
+                        .param("address","745 West Valley Farms Drive")
+                        .param("phone","387-866-1399"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("error/409.html"))
+                .andReturn();
+    }
 
     @Test
     @DisplayName("Should be returned 200 when get patient update page")
@@ -147,10 +161,21 @@ public class PatientControllerTestIT {
                 .andReturn();
     }
 
+    @Test
+    @DisplayName("Should be returned 404 page when get info with a wrong id")
+    public void should_beReturned404PageWhenGetInfoWIthAWrongId() throws Exception {
+        mockMvc.perform(get("/patient/info/100"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("error/404.html"))
+                .andReturn();
+    }
 
-
-
-
-
+    @Test
+    @DisplayName("Should be returned 400 page when get info with a bad request")
+    public void should_beReturned400PageWhenGetInfoWIthABadRequest() throws Exception {
+        mockMvc.perform(get("/patient/info/xxx"))
+                .andExpect(status().is(400))
+                .andReturn();
+    }
 
 }

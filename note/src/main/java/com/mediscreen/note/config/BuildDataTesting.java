@@ -99,28 +99,6 @@ public class BuildDataTesting {
                 "Tests de laboratoire indiquant un taux de cholestérol LDL élevé"));
 
         listNotes.add(new NoteDocument(
-                "abcd41",
-                4L,
-                LocalDateTime.now(),
-                "Le patient déclare qu'il lui est devenu difficile de monter les escaliers\n" +
-                        "Il se plaint également d’être essoufflé\n" +
-                        "Tests de laboratoire indiquant que les anticorps sont élevés\n" +
-                        "Réaction aux médicaments"));
-
-        listNotes.add(new NoteDocument(
-                "abcd42",
-                4L,
-                LocalDateTime.now(),
-                "Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps"));
-
-        listNotes.add(new NoteDocument(
-                "abcd43",
-                4L,
-                LocalDateTime.now(),
-                "Le patient déclare avoir commencé à fumer depuis peu\n" +
-                        "Hémoglobine A1C supérieure au niveau recommandé"));
-
-        listNotes.add(new NoteDocument(
                 "abcd51",
                 5L,
                 LocalDateTime.now(),

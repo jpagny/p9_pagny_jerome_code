@@ -1,7 +1,6 @@
 package com.mediscreen.app.controller;
 
 import com.mediscreen.app.bean.NoteBean;
-import com.mediscreen.app.bean.PatientBean;
 import com.mediscreen.app.service.impliment.NoteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +16,8 @@ import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -103,7 +103,7 @@ public class NoteControllerTestIT {
 
         NoteBean noteUpdated = noteService.get("abcd12");
 
-        assertEquals("Note corrigé",noteUpdated.getNote());
+        assertEquals("Note corrigé", noteUpdated.getNote());
     }
 
     @Test
@@ -137,8 +137,14 @@ public class NoteControllerTestIT {
                 .andReturn();
     }
 
-
-
+    @Test
+    @DisplayName("Should be returned 404 page when get info with a wrong id")
+    public void should_beReturned404PageWhenGetInfoWIthAWrongId() throws Exception {
+        mockMvc.perform(get("/note/info/xxx"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("error/404.html"))
+                .andReturn();
+    }
 
 
 }

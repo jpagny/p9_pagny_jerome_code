@@ -41,7 +41,7 @@ public class NoteController {
         ArrayList<NoteBean> listNote = noteService.getAll();
 
         if (listNote != null) {
-            listNote.stream().forEach(theNote -> theNote.setPatient(patientService.get(theNote.getPatientId())));
+            listNote.forEach(theNote -> theNote.setPatient(patientService.get(theNote.getPatientId())));
         } else {
             listNote = new ArrayList<>();
         }
@@ -64,7 +64,7 @@ public class NoteController {
         return "note/update";
     }
 
-    @PostMapping("/update/")
+    @PostMapping("/update")
     public String updateNote(Model model, @Valid NoteBean noteBean, BindingResult result) {
 
         if (result.hasErrors()) {

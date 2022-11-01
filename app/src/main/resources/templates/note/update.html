@@ -10,7 +10,7 @@
     </div>
 
     <div class="row">
-        <form action="#" th:action="@{/update}" th:object="${noteBean}"
+        <form action="#" th:action="@{/note/update}" th:object="${noteBean}"
               method="post" class="form-horizontal" style="width: 100%">
 
             <input type="hidden" name="id" th:value="${id}"/>
@@ -21,7 +21,7 @@
                     <select th:field="${noteBean.patientId}" th:remove="all-but-first" id="patientId" name="patientId">
                         <option th:each="patient : ${patients}" th:value="${patient.id}"
                                 th:text="${patient.firstName + ' - ' + patient.lastName + ' (' + patient.birthdate + ')'}"
-                                th:selected="${note.patientId==patientSelected.id}">
+                                th:selected="${noteBean.patientId==patientSelected.id}">
                             Patient
                         </option>
                     </select><br/>
