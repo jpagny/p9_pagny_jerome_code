@@ -12,13 +12,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest()
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -74,6 +74,24 @@ public class PatientControllerTestIT {
     }
 
     @Test
+    @DisplayName("Should be redirect to patient/add and show a message error when there is a bad request")
+    public void should_beRedirectToNoteAddAndShowAMessageError_when_thereIsABadRequest() throws Exception {
+
+        mockMvc.perform(post("/patient/create/")
+                        .param("lastName", "")
+                        .param("firstName", "Test2")
+                        .param("birthdate", "2020-02-15")
+                        .param("gender", "F")
+                        .param("address","2 Warren Street")
+                        .param("phone","387-866-1399"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("patient/add"))
+                .andExpect(content().string(containsString("Last name is required")))
+                .andReturn();
+    }
+
+
+    @Test
     @DisplayName("Should be returned 200 when get patient update page")
     public void should_beReturned200_when_getPatientUpdatePage() throws Exception {
         this.mockMvc.perform(get("/patient/update/1"))
@@ -88,7 +106,7 @@ public class PatientControllerTestIT {
                         .param("id","1")
                         .param("lastName", "Lucasa")
                         .param("firstName", "Ferguson")
-                        .param("birthdate","1968-06-22\t")
+                        .param("birthdate","1968-06-22")
                         .param("gender", "M")
                         .param("address","2 Warren Street")
                         .param("phone","387-866-1399"))
@@ -100,6 +118,24 @@ public class PatientControllerTestIT {
 
         assertNotNull("",patientBean);
         assertEquals("Lucasa", patientBean.getLastName());
+    }
+
+    @Test
+    @DisplayName("Should be redirect to patient/update and show a message error when there is a bad request")
+    public void should_beRedirectToNoteUpdateAndShowAMessageError_when_thereIsABadRequest() throws Exception {
+
+        mockMvc.perform(post("/patient/update/")
+                        .param("id","1")
+                        .param("lastName", "")
+                        .param("firstName", "Ferguson")
+                        .param("birthdate","1968-06-22")
+                        .param("gender", "M")
+                        .param("address","2 Warren Street")
+                        .param("phone","387-866-1399"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("patient/update"))
+                .andExpect(content().string(containsString("Last name is required")))
+                .andReturn();
     }
 
     @Test

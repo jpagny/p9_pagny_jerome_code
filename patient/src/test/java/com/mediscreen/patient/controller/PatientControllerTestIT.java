@@ -54,8 +54,8 @@ public class PatientControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be returned 200 when get patient with wrong id")
-    public void should_beReturned200_when_getPatientWithWrongId() throws Exception {
+    @DisplayName("Should be returned 404 when get patient with wrong id")
+    public void should_beReturned404_when_getPatientWithWrongId() throws Exception {
         mockMvc.perform(get("/patient/100"))
                 .andExpect(status().isNotFound());
     }

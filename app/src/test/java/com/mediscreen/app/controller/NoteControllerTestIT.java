@@ -15,12 +15,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.util.AssertionErrors.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest()
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -71,6 +70,19 @@ public class NoteControllerTestIT {
     }
 
     @Test
+    @DisplayName("Should be redirect to note/create and added a message error when there is a bad request")
+    public void should_beRedirectToNoteCreateAndAddedAMessageError_when_thereIsABadRequest() throws Exception {
+
+        mockMvc.perform(post("/note/create/")
+                        .param("patientId", "1")
+                        .param("note", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("note/add"))
+                .andExpect(content().string(containsString("Note is required")))
+                .andReturn();
+    }
+
+    @Test
     @DisplayName("Should be returned 200 when get note update page")
     public void should_beReturned200_when_getNoteUpdatePage() throws Exception {
         this.mockMvc.perform(get("/note/update/abcd12"))
@@ -95,6 +107,20 @@ public class NoteControllerTestIT {
     }
 
     @Test
+    @DisplayName("Should be redirect to note/update and added a message error when there is a bad request")
+    public void should_beRedirectToNoteUpdateAndAddedAMessageError_when_thereIsABadRequest() throws Exception {
+
+        mockMvc.perform(post("/note/update/")
+                        .param("id", "abcd12")
+                        .param("patientId", "1")
+                        .param("note", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("note/update"))
+                .andExpect(content().string(containsString("Note is required")))
+                .andReturn();
+    }
+
+    @Test
     @DisplayName("Should be deleted note when note is deleted")
     public void should_beDeletedNote_when_noteIsDeleted() throws Exception {
         this.mockMvc.perform(get("/note/delete/abcd13"))
@@ -110,6 +136,8 @@ public class NoteControllerTestIT {
                 .andExpect(view().name("note/info"))
                 .andReturn();
     }
+
+
 
 
 

@@ -52,21 +52,21 @@ public class PatientController {
 
     @GetMapping("/update/{id}")
     public String showUpdateForm(Model model, @PathVariable Long id) {
-        PatientBean response = patientService.get(id);
+        PatientBean patientBean = patientService.get(id);
 
-        model.addAttribute("patient", response);
+        model.addAttribute("patientBean", patientBean);
 
         return "patient/update";
     }
 
     @PostMapping("/update")
-    public String updatePatient(Model model, @Valid PatientBean patient, BindingResult result) {
+    public String updatePatient(Model model, @Valid PatientBean patientBean, BindingResult result) {
 
         if (result.hasErrors()) {
             return "patient/update";
         }
 
-        patientService.update(patient);
+        patientService.update(patientBean);
 
         model.addAttribute("patients", patientService.getAll());
 
@@ -75,18 +75,18 @@ public class PatientController {
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("patient", new PatientBean());
+        model.addAttribute("patientBean", new PatientBean());
         return "patient/add";
     }
 
     @PostMapping("/create")
-    public String createPatient(Model model, @Valid PatientBean patient, BindingResult result) {
+    public String createPatient(Model model, @Valid PatientBean patientBean, BindingResult result) {
 
         if (result.hasErrors()) {
             return "patient/add";
         }
 
-        patientService.create(patient);
+        patientService.create(patientBean);
 
         model.addAttribute("patients", patientService.getAll());
 

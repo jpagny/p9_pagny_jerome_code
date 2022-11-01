@@ -10,7 +10,7 @@
     </div>
 
     <div class="row">
-        <form action="#" th:action="@{/patient/update}" th:object="${patient}"
+        <form action="#" th:action="@{/patient/update}" th:object="${patientBean}"
               method="post" class="form-horizontal" style="width: 100%">
 
             <input type="hidden" name="id" th:value="${id}"/>

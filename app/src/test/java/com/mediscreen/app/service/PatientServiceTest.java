@@ -34,7 +34,7 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be returned patient when the patient is found by id")
     public void should_beReturnedPatient_when_thePatientIsFoundById() {
-        PatientBean patient = new PatientBean(1L, "john", "rick", LocalDate.now().plusYears(-15).toString(), 15, Gender.M, "rue du java", "06.45.78.12.36");
+        PatientBean patient = new PatientBean(1L, "john", "rick", LocalDate.now().plusYears(-15), 15, Gender.M, "rue du java", "06.45.78.12.36");
         when(patientProxy.get(any(Long.class))).thenReturn(patient);
 
         PatientBean patientFound = patientService.get(1L);
@@ -46,8 +46,8 @@ public class PatientServiceTest {
     @DisplayName("Should be returned a list of patient when get all patients")
     public void should_beReturnedAListOfPatient_when_getAllPatients() {
         List<PatientBean> listPatients = new ArrayList<>();
-        listPatients.add(new PatientBean(1L, "john", "rick", LocalDate.now().plusYears(-5).toString(), 5, Gender.M, "rue du java", "06.45.78.12.36"));
-        listPatients.add(new PatientBean(1L, "john", "pamela", LocalDate.now().plusYears(-20).toString(), 20, Gender.F, "rue du java", "06.45.78.12.35"));
+        listPatients.add(new PatientBean(1L, "john", "rick", LocalDate.now().plusYears(-5), 5, Gender.M, "rue du java", "06.45.78.12.36"));
+        listPatients.add(new PatientBean(1L, "john", "pamela", LocalDate.now().plusYears(-20), 20, Gender.F, "rue du java", "06.45.78.12.35"));
 
         when(patientProxy.getAll()).thenReturn(new ArrayList<>(listPatients));
 
@@ -59,7 +59,7 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be returned patient when a patient is updated")
     public void should_beReturnedPatientList_when_aPatientIsUpdated() {
-        PatientBean patientToUpdate = new PatientBean(1L, "john", "rick", LocalDate.now().plusYears(-10).toString(), 10, Gender.M, "rue du java", "06.45.78.12.36");
+        PatientBean patientToUpdate = new PatientBean(1L, "john", "rick", LocalDate.now().plusYears(-10), 10, Gender.M, "rue du java", "06.45.78.12.36");
         patientToUpdate.setLastName("johna");
 
         when(patientProxy.update(any(PatientBean.class))).thenReturn(patientToUpdate);
@@ -72,7 +72,7 @@ public class PatientServiceTest {
     @Test
     @DisplayName("Should be returned patient when a patient is created")
     public void should_beReturnedPatientList_when_aPatientIsCreated() {
-        PatientBean patientToCreate = new PatientBean(1L, "john", "rick", LocalDate.now().plusYears(-10).toString(), 10, Gender.M, "rue du java", "06.45.78.12.36");
+        PatientBean patientToCreate = new PatientBean(1L, "john", "rick", LocalDate.now().plusYears(-10), 10, Gender.M, "rue du java", "06.45.78.12.36");
 
         when(patientProxy.create(any(PatientBean.class))).thenReturn(patientToCreate);
 

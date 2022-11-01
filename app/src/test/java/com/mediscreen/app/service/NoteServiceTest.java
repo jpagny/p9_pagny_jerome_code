@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class NoteServiceTest {
     public void should_beReturnedNote_when_theNoteIsFoundById() {
 
         PatientBean patient = new PatientBean(1L, "Test", "Test 2",
-                LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
+                LocalDate.now().plusYears(-20), 20, Gender.F, "xxx", "xx");
         NoteBean note = new NoteBean("1", patient.getId(), patient, LocalDateTime.now(), "Test");
 
         when(noteProxy.get(any(String.class))).thenReturn(note);
@@ -55,9 +56,9 @@ public class NoteServiceTest {
     public void should_beReturnedAListOfNote_when_getAllNotes() {
         List<NoteBean> listNote = new ArrayList<>();
         PatientBean patient1 = new PatientBean(1L, "Test", "Test 2",
-                LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
+                LocalDate.now().plusYears(-20), 20, Gender.F, "xxx", "xx");
         PatientBean patient2 = new PatientBean(2L, "Test3", "Test 4",
-                LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
+                LocalDate.now().plusYears(-20), 20, Gender.F, "xxx", "xx");
         listNote.add(new NoteBean("2", 1L, patient1, LocalDateTime.now().plusDays(2), "Test2"));
         listNote.add(new NoteBean("1", 2L, patient2, LocalDateTime.now(), "Test"));
 
@@ -72,7 +73,7 @@ public class NoteServiceTest {
     @DisplayName("Should be returned note when a note is updated")
     public void should_beReturnedNoteList_when_aNoteIsUpdated() {
         PatientBean patient = new PatientBean(2L, "Test3", "Test 4",
-                LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
+                LocalDate.now().plusYears(-20), 20, Gender.F, "xxx", "xx");
         NoteBean noteToUpdate = new NoteBean("2", 1L, patient, LocalDateTime.now().plusDays(2), "Test2");
         noteToUpdate.setNote("Note modified");
 
@@ -87,7 +88,7 @@ public class NoteServiceTest {
     @DisplayName("Should be returned note when a note is created")
     public void should_beReturnedNoteList_when_aNoteIsCreated() {
         PatientBean patient = new PatientBean(2L, "Test3", "Test 4",
-                LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
+                LocalDate.now().plusYears(-20), 20, Gender.F, "xxx", "xx");
         NoteBean noteToCreate = new NoteBean("1", 1L, patient, LocalDateTime.now(), "Test");
 
         when(noteProxy.create(any(NoteBean.class))).thenReturn(noteToCreate);
@@ -101,7 +102,7 @@ public class NoteServiceTest {
     @DisplayName("Should be used delete method when note is deleted")
     public void should_beUsedDeleteMethod_when_noteIsDeleted() {
         PatientBean patient = new PatientBean(2L, "Test3", "Test 4",
-                LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
+                LocalDate.now().plusYears(-20), 20, Gender.F, "xxx", "xx");
 
         NoteBean noteToDelete = new NoteBean("1", 1L, patient, LocalDateTime.now(), "Test");
 
@@ -116,9 +117,9 @@ public class NoteServiceTest {
     @DisplayName("Should be returned a list of notes from a patient when get all notes by patientID")
     public void should_beReturnedAListOfNoteFromAPatient_when_getAllNotesByPatientID() {
         PatientBean patient1 = new PatientBean(1L, "Test", "Test2",
-                LocalDateTime.now().plusYears(-10).toString(), 20, Gender.F, "xxx", "xx");
+                LocalDate.now().plusYears(-10), 20, Gender.F, "xxx", "xx");
         PatientBean patient2 = new PatientBean(2L, "Test3", "Test 4",
-                LocalDateTime.now().plusYears(-20).toString(), 20, Gender.F, "xxx", "xx");
+                LocalDate.now().plusYears(-20), 20, Gender.F, "xxx", "xx");
         List<NoteBean> listNote = new ArrayList<>();
         listNote.add(new NoteBean("1", patient1.getId(), patient1, LocalDateTime.now(), "Test"));
         listNote.add(new NoteBean("2", patient1.getId(), patient1, LocalDateTime.now(), "Test2"));

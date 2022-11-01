@@ -40,7 +40,7 @@ public class NoteController {
     public String getNoteList(Model model) {
         ArrayList<NoteBean> listNote = noteService.getAll();
 
-        if ( listNote != null) {
+        if (listNote != null) {
             listNote.stream().forEach(theNote -> theNote.setPatient(patientService.get(theNote.getPatientId())));
         } else {
             listNote = new ArrayList<>();
@@ -53,27 +53,26 @@ public class NoteController {
 
     @GetMapping("/update/{id}")
     public String showUpdateForm(Model model, @PathVariable String id) {
-        NoteBean response = noteService.get(id);
-        PatientBean patientSelected = patientService.get(response.getPatientId());
+        NoteBean noteBean = noteService.get(id);
+        PatientBean patientSelected = patientService.get(noteBean.getPatientId());
         List<PatientBean> listPatients = patientService.getAll();
 
-        model.addAttribute("theNote", response);
+        model.addAttribute("noteBean", noteBean);
         model.addAttribute("patientSelected", patientSelected);
         model.addAttribute("patients", listPatients);
-
 
         return "note/update";
     }
 
-    @PostMapping("/update")
-    public String updateNote(Model model, @Valid NoteBean note, BindingResult result) {
+    @PostMapping("/update/")
+    public String updateNote(Model model, @Valid NoteBean noteBean, BindingResult result) {
 
         if (result.hasErrors()) {
             return "note/update";
         }
 
-        note.setDate(LocalDateTime.now());
-        NoteBean noteUpdated = noteService.update(note);
+        noteBean.setDate(LocalDateTime.now());
+        NoteBean noteUpdated = noteService.update(noteBean);
 
         model.addAttribute("notes", noteService.getAll());
 
@@ -83,21 +82,21 @@ public class NoteController {
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         List<PatientBean> listPatients = patientService.getAll();
-        model.addAttribute("note", new NoteBean());
+        model.addAttribute("noteBean", new NoteBean());
         model.addAttribute("patients", listPatients);
 
         return "note/add";
     }
 
     @PostMapping("/create")
-    public String createNote(Model model, @Valid NoteBean note, BindingResult result) {
+    public String createNote(Model model, @Valid NoteBean noteBean, BindingResult result) {
 
         if (result.hasErrors()) {
             return "note/add";
         }
 
-        note.setDate(LocalDateTime.now());
-        NoteBean noteCreated = noteService.create(note);
+        noteBean.setDate(LocalDateTime.now());
+        NoteBean noteCreated = noteService.create(noteBean);
 
         model.addAttribute("notes", noteService.getAll());
 

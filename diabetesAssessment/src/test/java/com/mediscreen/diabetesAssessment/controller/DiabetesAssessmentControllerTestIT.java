@@ -49,6 +49,13 @@ public class DiabetesAssessmentControllerTestIT {
                 .andExpect(content().string(containsString("lastName")));
     }
 
+    @Test
+    @DisplayName("Should be returned 404 when get patient with wrong id")
+    public void should_beReturned404_when_getPatientWithWrongId() throws Exception {
+        mockMvc.perform(get("/assess/100"))
+                .andExpect(status().isNotFound());
+    }
+
 
 
 }
