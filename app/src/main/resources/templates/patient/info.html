@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="head :: headerfragment"></head>
+<body>
+<div class="container">
+    <div th:insert="nav" id="nav"></div>
+    <div class="row"><h2>Patient info</h2></div>
+    <br>
+    <br/>
+    <div class="row"><h3>Patient</h3></div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Sexe</th>
+                <th>Date de naissance</th>
+                <th>Adresse</th>
+                <th>Numéro de téléphone</th>
+            </tr>
+            </thead>
+            <tr>
+                <td th:text="${patient.lastName}"/>
+                <td th:text="${patient.firstName}"/>
+                <td th:text="${patient.gender}"/>
+                <td th:text="${patient.birthdate}"/>
+                <td th:text="${patient.address}"/>
+                <td th:text="${patient.phone}"/>
+            </tr>
+        </table>
+    </div>
+
+    <br/>
+
+    <div class="row"><h3>Assessment</h3></div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Risk level</th>
+            </tr>
+            </thead>
+            <tr>
+                <td th:text="${assessment.date}"/>
+                <td th:text="${assessment.scoreTrigger}"/>
+                <td th:text="${assessment.riskLevel.label}"/>
+            </tr>
+        </table>
+    </div>
+
+    <br/>
+
+    <div class="row"><h3>Notes</h3></div>
+    <div class="row">
+        <a href="/note/create" class="btn btn-primary btn-sm">Add New</a>
+    </div>
+    <br/>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Note</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="note: ${notes}">
+                <td th:text="${note.id}"/>
+                <td th:text="${note.date}"/>
+                <td th:text="${note.note}"/>
+                <td style="width: 15%" class="text-center">
+                    <a th:href="@{/note/info/{id}(id=${note.getId()})}">Detail</a> |
+                    <a th:href="@{/note/update/{id}(id=${note.getId()})}">Edit</a> |
+                    <a th:href="@{/note/delete/{id}(id=${note.getId()})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>

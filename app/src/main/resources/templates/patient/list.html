@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="head :: headerfragment"></head>
+<body>
+<div class="container">
+    <div th:insert="nav" id="nav"></div>
+    <div class="row"><h2>Patient list</h2></div>
+    <br/>
+    <div class="row">
+        <a href="/patient/create" class="btn btn-primary btn-sm">Add New</a>
+    </div>
+    <br/>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Sexe</th>
+                <th>Date de naissance</th>
+                <th>Adresse</th>
+                <th>Numéro de téléphone</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient: ${patients}">
+                <td th:text="${patient.lastName}"/>
+                <td th:text="${patient.firstName}"/>
+                <td th:text="${patient.gender}"/>
+                <td th:text="${patient.birthdate}"/>
+                <td th:text="${patient.address}"/>
+                <td th:text="${patient.phone}"/>
+                <td style="width: 15%" class="text-center">
+                    <a th:href="@{/patient/info/{id}(id=${patient.getId()})}">Detail</a> |
+                    <a th:href="@{/patient/update/{id}(id=${patient.getId()})}">Edit</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

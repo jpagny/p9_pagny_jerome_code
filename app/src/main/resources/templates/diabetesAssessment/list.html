@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="head :: headerfragment"></head>
+<body>
+<div class="container">
+    <div th:insert="nav" id="nav"></div>
+    <div class="row"><h2>List patients by diabetes assessment risk level</h2></div>
+    <br/>
+    <br/>
+    <div class="row">
+        <tr th:each="mapEntry : ${list}">
+            <h2 th:text="'[ ' + ${mapEntry.key.label} +' ]'"></h2><br/>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Age</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="patient: ${mapEntry.getValue()}">
+                    <td th:text="${patient.lastName}"/>
+                    <td th:text="${patient.firstName}"/>
+                    <td th:text="${patient.gender}"/>
+                    <td th:text="${patient.age}"/>
+                    <td style="width: 15%" class="text-center">
+                        <a th:href="@{/patient/info/{id}(id=${patient.getId()})}">Detail</a> |
+                        <a th:href="@{/patient/update/{id}(id=${patient.getId()})}">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br/><br/><br/>
+        </tr>
+    </div>
+    <br/><br/><br/>
+</div>
+</body>
+</html>

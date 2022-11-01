@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:include="head :: headerfragment"></head>
+<body>
+<div class="container">
+    <div th:insert="nav" id="nav"></div>
+    <div class="row"><h2>Note info</h2></div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Patient</th>
+                <th>Date</th>
+                <th>Note</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${note.id}"/>
+                <td th:text="${patient.lastName + ' ' + patient.firstName}"/>
+                <td th:text="${note.date}"/>
+                <td th:text="${note.note}"/>
+                <td style="width: 15%" class="text-center">
+                    <a th:href="@{/note/update/{id}(id=${note.getId()})}">Edit</a> |
+                    <a th:href="@{/note/delete/{id}(id=${note.getId()})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>

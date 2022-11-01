@@ -1,10 +1,10 @@
-package com.mediscreen.patient;
+package com.mediscreen.note;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PatientApplicationTests {
+class NoteApplicationTests {
 
     @Test
     void contextLoads() {
