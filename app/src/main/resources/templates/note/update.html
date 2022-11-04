@@ -13,7 +13,7 @@
         <form action="#" th:action="@{/note/update}" th:object="${noteBean}"
               method="post" class="form-horizontal" style="width: 100%">
 
-            <input type="hidden" name="id" th:value="${id}"/>
+            <input type="hidden" name="id" th:value="${noteBean.id}"/>
 
             <div class="form-group">
                 <label for="patientId" class="col-sm-2 control-label">Select patient</label>

@@ -68,6 +68,10 @@ public class NoteController {
     public String updateNote(Model model, @Valid NoteBean noteBean, BindingResult result) {
 
         if (result.hasErrors()) {
+            PatientBean patientSelected = patientService.get(noteBean.getPatientId());
+            List<PatientBean> listPatients = patientService.getAll();
+            model.addAttribute("patientSelected", patientSelected);
+            model.addAttribute("patients", listPatients);
             return "note/update";
         }
 
