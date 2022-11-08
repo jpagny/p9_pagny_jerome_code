@@ -43,6 +43,8 @@ public class DiabetesAssessmentService implements IDiabetesAssessmentService {
         scoreTrigger = getScoreTriggerByAllNotes(listNotes);
         riskLevel = checkLevelRisk(patient, scoreTrigger);
 
+        log.info("The diabetes assessment was successfully built");
+
         return new DiabetesAssessmentDTO(LocalDateTime.now(), scoreTrigger, riskLevel);
     }
 
@@ -60,6 +62,8 @@ public class DiabetesAssessmentService implements IDiabetesAssessmentService {
             }
         });
 
+        log.info("The risk level was successfully checked");
+
         return listPatientWithThisRiskLevel;
     }
 
@@ -70,6 +74,7 @@ public class DiabetesAssessmentService implements IDiabetesAssessmentService {
         listNotes.forEach(theNote -> scoreTrigger.addAndGet(getScoreTriggerByNote(theNote)));
 
         log.debug("Total score for all notes is : " + scoreTrigger.get());
+
         return scoreTrigger.get();
     }
 
@@ -86,6 +91,7 @@ public class DiabetesAssessmentService implements IDiabetesAssessmentService {
         });
 
         log.debug("Total score for this note is : " + scoreTrigger.get());
+
         return scoreTrigger.get();
     }
 
@@ -99,6 +105,8 @@ public class DiabetesAssessmentService implements IDiabetesAssessmentService {
                 case F -> checkLevelRiskWithGenderWoman(patient.getAge(), scoreTrigger);
             };
         }
+
+        log.debug("The risk level is : " + riskLevel.label);
 
         return riskLevel;
     }

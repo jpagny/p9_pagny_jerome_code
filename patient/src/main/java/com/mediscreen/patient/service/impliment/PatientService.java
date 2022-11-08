@@ -6,6 +6,7 @@ import com.mediscreen.patient.exception.ResourceAlreadyExistException;
 import com.mediscreen.patient.exception.ResourceNotFoundException;
 import com.mediscreen.patient.repository.PatientRepository;
 import com.mediscreen.patient.service.IPatientService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class PatientService implements IPatientService {
 
     private final PatientRepository patientRepository;
@@ -38,6 +40,7 @@ public class PatientService implements IPatientService {
         PatientEntity patient = patientRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(String.valueOf(id))
         );
+        log.info("The patient was successfully found with the id : {}", id);
         return modelMapper.map(patient, PatientDTO.class);
     }
 
@@ -48,6 +51,7 @@ public class PatientService implements IPatientService {
      */
     @Override
     public List<PatientDTO> getAll() {
+        log.debug("List all patients");
         return patientRepository.findAll()
                 .stream()
                 .map(user -> modelMapper.map(user, PatientDTO.class))
@@ -68,6 +72,8 @@ public class PatientService implements IPatientService {
         );
 
         PatientEntity patientToUpdate = modelMapper.map(patient, PatientEntity.class);
+
+        log.info("The patient was successfully updated");
 
         return modelMapper.map(patientRepository.save(patientToUpdate), PatientDTO.class);
     }
@@ -94,6 +100,8 @@ public class PatientService implements IPatientService {
 
         PatientEntity patientCreated = patientRepository.save(patientToCreate);
 
+        log.info("The patient was successfully created");
+
         return modelMapper.map(patientCreated, PatientDTO.class);
     }
 
@@ -109,6 +117,7 @@ public class PatientService implements IPatientService {
                 () -> new ResourceNotFoundException(String.valueOf(id))
         );
         patientRepository.delete(patient);
+        log.info("The patient was successfully deleted");
     }
 
 }
