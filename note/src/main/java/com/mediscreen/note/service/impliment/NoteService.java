@@ -5,6 +5,7 @@ import com.mediscreen.note.dto.NoteDTO;
 import com.mediscreen.note.exception.ResourceNotFoundException;
 import com.mediscreen.note.repository.NoteRepository;
 import com.mediscreen.note.service.INoteService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class NoteService implements INoteService {
 
     private final NoteRepository noteRepository;
@@ -37,6 +39,9 @@ public class NoteService implements INoteService {
         NoteDocument history = noteRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(id)
         );
+
+        log.info("The note was found with id : " + id);
+
         return modelMapper.map(history, NoteDTO.class);
     }
 
@@ -47,6 +52,7 @@ public class NoteService implements INoteService {
      */
     @Override
     public List<NoteDTO> getAll() {
+        log.debug("List all notes");
         return noteRepository.findAll()
                 .stream()
                 .map(history -> modelMapper.map(history, NoteDTO.class))
@@ -62,6 +68,8 @@ public class NoteService implements INoteService {
         if ( listNotes == null){
             return new ArrayList<>();
         }
+
+        log.info("List note were found with patient id : " + patientId);
 
         return noteRepository.findAllByPatientId(patientId)
                 .stream()
@@ -85,6 +93,8 @@ public class NoteService implements INoteService {
 
         NoteDocument historyToUpdate = modelMapper.map(history, NoteDocument.class);
 
+        log.info("The note was successfully updated");
+
         return modelMapper.map(noteRepository.save(historyToUpdate), NoteDTO.class);
     }
 
@@ -99,6 +109,8 @@ public class NoteService implements INoteService {
         NoteDocument historyToCreate = modelMapper.map(history, NoteDocument.class);
 
         NoteDocument historyCreated = noteRepository.save(historyToCreate);
+
+        log.info("The note was successfully created");
 
         return modelMapper.map(historyCreated, NoteDTO.class);
     }
@@ -115,5 +127,6 @@ public class NoteService implements INoteService {
                 () -> new ResourceNotFoundException(id)
         );
         noteRepository.delete(history);
+        log.info("The note was successfully deleted");
     }
 }
